@@ -115,12 +115,11 @@ Skill doc local: `http://localhost:3000/skill.md`
 
 ## Equipo
 
-<!-- Completar con nombres y roles del equipo -->
+**Equipo 19**
 
-| | |
-|---|---|
-| **Nombre** | Rol |
-| **Nombre** | Rol |
+- Luisa Fernanda Guerra
+- José Ángel López
+- Gerson Estrada López
 
 ---
 
