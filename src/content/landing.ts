@@ -3,6 +3,10 @@
  * Wire to i18n (`src/messages/*.json`) when you need multiple locales.
  */
 
+import { architectureCatalogSection } from "@/content/architectures"
+
+export type { ArchitectureCardModel, ArchitectureTopology } from "@/content/architectures"
+
 export type LandingNavItem = { label: string; href: string }
 
 export type LandingBullet = { title: string; description: string }
@@ -20,22 +24,12 @@ export type LandingDirectoryListing = {
   badge?: string
 }
 
-export type ArchitectureTopology = "supervisor" | "pipeline" | "fanout"
-
-export type LandingArchitecture = {
-  name: string
-  category: string
-  description: string
-  topology: ArchitectureTopology
-  badge?: string
-}
-
 export const landingContent = {
   brand: {
     name: "agentatlas",
   },
   header: {
-    nav: [] satisfies LandingNavItem[],
+    nav: [] as LandingNavItem[],
     loginLabel: "Log in",
     signupLabel: "Sign up",
     dashboardLabel: "Dashboard",
@@ -51,29 +45,10 @@ export const landingContent = {
     },
   },
   architectures: {
-    id: "architectures",
-    eyebrow: "Architecture patterns",
-    items: [
-      {
-        name: "Supervisor / Router",
-        category: "Orchestration",
-        description: "One coordinator routes work to specialists and merges results.",
-        topology: "supervisor",
-        badge: "Popular",
-      },
-      {
-        name: "Pipeline + Critic",
-        category: "Quality",
-        description: "Plan, execute, then verify — each stage owns a narrow job.",
-        topology: "pipeline",
-      },
-      {
-        name: "Parallel fan-out",
-        category: "Throughput",
-        description: "Fan work out to parallel workers, then merge downstream.",
-        topology: "fanout",
-      },
-    ] satisfies LandingArchitecture[],
+    id: architectureCatalogSection.id,
+    eyebrow: architectureCatalogSection.eyebrow,
+    intro: architectureCatalogSection.intro,
+    extendedEyebrow: "Extended patterns",
   },
   network: {
     id: "network",

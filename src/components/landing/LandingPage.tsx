@@ -1,7 +1,7 @@
 "use client"
 
 import LandingHeader from "@/components/landing/LandingHeader"
-import ArchitecturesSection from "@/components/landing/sections/ArchitecturesSection"
+import ArchitecturesSection from "@/components/landing/ArchitecturesSection"
 import HeroSection from "@/components/landing/sections/HeroSection"
 import LandingFooter from "@/components/landing/sections/LandingFooter"
 

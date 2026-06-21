@@ -1,3 +1,4 @@
+import { buildArchitectureCatalogPlainLines } from "@/lib/architecture-markdown"
 import { landingContent } from "@/content/landing"
 import { AGENTATLAS_AGENT_SETUP_COMMAND } from "@/lib/agentatlas-skill"
 import { NEXT_PUBLIC_APP_URL } from "@/config/env"
@@ -38,12 +39,7 @@ export function buildLandingLlmText(): string {
       `Swarm skill setup: ${AGENTATLAS_AGENT_SETUP_COMMAND}`,
       `Skill doc: ${baseUrl}/skill.md`,
     ]),
-    section("Architecture patterns", [
-      ...c.architectures.items.map(
-        (item) =>
-          `- ${item.name} [${item.category}] — ${item.description}${item.badge ? ` (${item.badge})` : ""}`,
-      ),
-    ]),
+    section("Architecture patterns", buildArchitectureCatalogPlainLines()),
     section("Network", [
       c.network.lede,
       "",
