@@ -44,7 +44,7 @@ export default function LandingPage() {
       `}</style>
       <style jsx>{`
         .page {
-          min-height: 100vh;
+          min-height: 100dvh;
           background: var(--app-bg);
         }
         .main {
@@ -58,8 +58,14 @@ export default function LandingPage() {
         .archStack {
           position: relative;
           z-index: 3;
-          margin-top: calc(-1 * var(--arch-stack-pull));
-          padding-top: var(--arch-stack-pad);
+          margin-top: 0;
+          padding-top: 1.5rem;
+        }
+        @media (min-width: 768px) {
+          .archStack {
+            margin-top: calc(-1 * var(--arch-stack-pull));
+            padding-top: var(--arch-stack-pad);
+          }
         }
       `}</style>
     </div>

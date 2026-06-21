@@ -73,9 +73,10 @@ export default function SwarmWorkspaceLayout({ children }: { children: React.Rea
       <style jsx>{`
         .wrap {
           display: flex;
-          min-height: 100vh;
+          min-height: 100dvh;
           font-family: var(--app-font);
           background: var(--app-bg);
+          overflow-x: clip;
         }
         .wrap--editor .content {
           width: 100%;
@@ -86,8 +87,8 @@ export default function SwarmWorkspaceLayout({ children }: { children: React.Rea
           display: flex;
           flex-direction: column;
           min-height: 0;
-          height: 100vh;
-          max-height: 100vh;
+          height: 100dvh;
+          max-height: 100dvh;
           overflow: hidden;
         }
         .sidebar {
@@ -96,7 +97,7 @@ export default function SwarmWorkspaceLayout({ children }: { children: React.Rea
           border-right: 1px solid var(--app-border);
           display: flex;
           flex-direction: column;
-          min-height: 100vh;
+          min-height: 100dvh;
           background: var(--app-surface);
         }
         .top {
@@ -202,6 +203,32 @@ export default function SwarmWorkspaceLayout({ children }: { children: React.Rea
           background: var(--app-surface-muted);
           border-color: var(--app-text);
           color: var(--app-text);
+        }
+        @media (max-width: 639px) {
+          .sidebar {
+            width: 4rem;
+          }
+          .top {
+            padding: 1rem 0.5rem;
+            display: flex;
+            justify-content: center;
+          }
+          .top :global(a span:nth-child(2)),
+          .badge-label,
+          .item > span,
+          .name,
+          .sign-out > span {
+            display: none;
+          }
+          .item,
+          .sign-out {
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .bottom {
+            padding: 0.75rem 0.375rem 1rem;
+          }
         }
       `}</style>
     </div>

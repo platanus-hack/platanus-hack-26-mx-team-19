@@ -30,6 +30,8 @@ export function DottedSurface({ className, layout = "contained", ...props }: Dot
     const container = containerRef.current
     if (!container) return
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
     const scene = new THREE.Scene()
     scene.fog = new THREE.Fog(0xffffff, 2000, 10000)
 
@@ -117,7 +119,12 @@ export function DottedSurface({ className, layout = "contained", ...props }: Dot
     }
 
     handleResize()
-    animate()
+
+    if (prefersReducedMotion) {
+      renderer.render(scene, camera)
+    } else {
+      animate()
+    }
 
     sceneRef.current = {
       scene,

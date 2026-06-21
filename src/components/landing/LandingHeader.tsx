@@ -47,6 +47,7 @@ export default function LandingHeader() {
           position: sticky;
           top: 0;
           z-index: 40;
+          padding-top: env(safe-area-inset-top, 0);
           background: color-mix(in srgb, var(--app-bg) 72%, transparent);
           border-bottom: 1px solid var(--app-border);
           backdrop-filter: saturate(180%) blur(14px);
@@ -83,6 +84,15 @@ export default function LandingHeader() {
           align-items: center;
           gap: 0.5rem;
           margin-left: auto;
+          flex-shrink: 0;
+        }
+        @media (max-width: 420px) {
+          .inner {
+            gap: 0.625rem;
+          }
+          .actions {
+            gap: 0.375rem;
+          }
         }
         @media (min-width: 768px) {
           .nav {

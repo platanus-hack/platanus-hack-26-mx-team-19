@@ -83,11 +83,14 @@ const TEST_PANEL_DEFAULT_WIDTH_PX = 672
 const TEST_PANEL_MAX_WIDTH_RATIO = 0.65
 
 function clampTestPanelWidth(width: number): number {
-  const max = Math.min(
-    typeof window !== "undefined" ? window.innerWidth * TEST_PANEL_MAX_WIDTH_RATIO : 1200,
-    1200,
-  )
-  return Math.round(Math.min(max, Math.max(TEST_PANEL_MIN_WIDTH_PX, width)))
+  if (typeof window === "undefined") {
+    return Math.round(Math.min(1200, Math.max(TEST_PANEL_MIN_WIDTH_PX, width)))
+  }
+
+  const viewportCap = Math.max(280, window.innerWidth - 24)
+  const min = Math.min(TEST_PANEL_MIN_WIDTH_PX, viewportCap)
+  const max = Math.min(window.innerWidth * TEST_PANEL_MAX_WIDTH_RATIO, 1200, viewportCap)
+  return Math.round(Math.min(max, Math.max(min, width)))
 }
 
 function formatJson(value: unknown): string {

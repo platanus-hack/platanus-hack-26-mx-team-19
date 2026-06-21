@@ -73,6 +73,17 @@ export default function HeroSection() {
             max-width: 22ch;
           }
         }
+        @media (max-width: 639px) {
+          .inner {
+            margin-top: clamp(1.25rem, 5vh, 2rem);
+          }
+          .title {
+            font-size: 1.625rem;
+          }
+          .lede {
+            font-size: 0.875rem;
+          }
+        }
       `}</style>
     </LandingSection>
   )

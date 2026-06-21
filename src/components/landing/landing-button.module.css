@@ -122,3 +122,15 @@
 .inverted:focus-visible {
   box-shadow: 0 0 0 2px var(--app-primary), 0 0 0 4px rgba(255, 255, 255, 0.35);
 }
+
+@media (max-width: 420px) {
+  .root {
+    padding: 0.4375rem 0.625rem;
+    font-size: 0.8125rem;
+  }
+
+  .lg {
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+  }
+}

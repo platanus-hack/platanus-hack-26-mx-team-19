@@ -20,6 +20,11 @@ export default function LandingContainer({ children, narrow = false, className =
         .container--narrow {
           max-width: 44rem;
         }
+        @media (max-width: 639px) {
+          .container {
+            padding: 0 1rem;
+          }
+        }
       `}</style>
     </div>
   )

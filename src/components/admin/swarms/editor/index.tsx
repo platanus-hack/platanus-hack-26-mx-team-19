@@ -964,6 +964,15 @@ export default function SwarmEditor({ swarmId, apiMode = "admin" }: Props) {
               transform: rotate(360deg);
             }
           }
+          @media (max-width: 639px) {
+            .bar {
+              gap: 0.5rem;
+              padding: 0.625rem 0.75rem;
+            }
+            .sub {
+              display: none;
+            }
+          }
         `}</style>
       </div>
     </SwarmEditorProvider>

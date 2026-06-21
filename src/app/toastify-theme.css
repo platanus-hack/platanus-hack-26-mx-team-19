@@ -56,3 +56,12 @@
 .app-toastify-host .Toastify__progress-bar {
   height: 3px;
 }
+
+@media (max-width: 480px) {
+  .app-toastify-host.Toastify__toast-container {
+    --toastify-toast-width: min(calc(100vw - 2rem), 22rem);
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+  }
+}

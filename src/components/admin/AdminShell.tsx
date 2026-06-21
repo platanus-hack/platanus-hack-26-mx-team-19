@@ -15,9 +15,10 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       <style jsx>{`
         .wrap {
           display: flex;
-          min-height: 100vh;
+          min-height: 100dvh;
           font-family: var(--app-font);
           background: var(--app-bg);
+          overflow-x: clip;
         }
         .content {
           flex: 1;
@@ -25,8 +26,8 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           display: flex;
           flex-direction: column;
           min-height: 0;
-          height: 100vh;
-          max-height: 100vh;
+          height: 100dvh;
+          max-height: 100dvh;
           overflow: hidden;
         }
       `}</style>

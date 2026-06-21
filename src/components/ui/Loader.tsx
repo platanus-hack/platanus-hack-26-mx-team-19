@@ -19,7 +19,7 @@ export default function Loader({ compact = false, inline = false }: Props) {
           display: flex;
           align-items: center;
           justify-content: center;
-          min-height: 100vh;
+          min-height: 100dvh;
           width: 100%;
           background: var(--app-bg);
         }

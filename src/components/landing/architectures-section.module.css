@@ -89,6 +89,12 @@
   color: var(--app-text-faint);
 }
 
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 768px) {
   .header {
     margin-bottom: 2.25rem;
@@ -257,6 +263,11 @@
   gap: 0.875rem;
 }
 
+.cardHead > div:first-child {
+  min-width: 0;
+  flex: 1;
+}
+
 .cardName {
   margin: 0 0 0.25rem;
   font-size: 1.0625rem;
@@ -306,7 +317,7 @@
 .scales {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.625rem 0.5rem;
   padding: 0.75rem 0.875rem;
   background: rgba(0, 0, 0, 0.35);
@@ -454,6 +465,26 @@
 .list strong {
   color: var(--app-text);
   font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .scales {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .metricLabel {
+    font-size: 0.5625rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .cardBody {
+    padding: 1rem 1.125rem 1.125rem;
+  }
+
+  .metricLabel {
+    font-size: 0.625rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
