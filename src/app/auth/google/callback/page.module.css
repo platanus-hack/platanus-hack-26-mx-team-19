@@ -1,0 +1,10 @@
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+  font-size: 0.9375rem;
+  color: var(--app-text-muted);
+  background: var(--app-bg);
+}

@@ -1,0 +1,124 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0.5rem 0.875rem;
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
+  color: inherit;
+  font-family: var(--app-font);
+  font-size: 0.875rem;
+  font-weight: var(--app-btn-font-weight);
+  line-height: 1.25;
+  letter-spacing: var(--app-btn-letter-spacing);
+  border-radius: var(--app-btn-radius);
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: var(--app-btn-transition);
+}
+
+.root:hover {
+  text-decoration: none;
+}
+
+.root:focus-visible {
+  outline: none;
+  box-shadow: var(--app-btn-focus-ring);
+}
+
+.root:active:not(:disabled) {
+  transform: translateY(0.5px);
+}
+
+.root:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ghost {
+  color: var(--app-text);
+  background: transparent;
+  border-color: transparent;
+}
+
+.ghost:hover {
+  background: var(--app-btn-ghost-bg-hover);
+  border-color: var(--app-btn-ghost-border-hover);
+}
+
+.ghost:active {
+  background: var(--app-surface-muted);
+}
+
+.secondary {
+  color: var(--app-text);
+  background: var(--app-btn-secondary-bg);
+  border-color: var(--app-btn-secondary-border);
+  box-shadow: var(--app-shadow-sm);
+}
+
+.secondary:hover {
+  background: var(--app-btn-secondary-bg-hover);
+  border-color: var(--app-btn-secondary-border-hover);
+}
+
+.primary {
+  color: var(--app-btn-primary-fg);
+  background: var(--app-btn-primary-bg);
+  border-color: var(--app-btn-primary-border);
+  box-shadow: var(--app-btn-primary-shadow);
+}
+
+.primary:hover {
+  background: var(--app-btn-primary-bg-hover);
+  border-color: var(--app-btn-primary-bg-hover);
+  box-shadow: var(--app-btn-primary-shadow-hover);
+}
+
+.primary:active {
+  background: var(--app-btn-primary-bg-active);
+  border-color: var(--app-btn-primary-bg-active);
+  box-shadow: none;
+}
+
+.lg {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.invertedPrimary {
+  color: var(--app-text);
+  background: #ffffff;
+  border-color: #ffffff;
+  box-shadow: var(--app-shadow-sm);
+}
+
+.invertedPrimary:hover {
+  background: var(--app-surface-muted);
+  border-color: var(--app-surface-muted);
+  box-shadow: var(--app-shadow-md);
+}
+
+.invertedPrimary:active {
+  background: #f0f0ee;
+}
+
+.invertedSecondary {
+  color: #ffffff;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: none;
+}
+
+.invertedSecondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.inverted:focus-visible {
+  box-shadow: 0 0 0 2px var(--app-primary), 0 0 0 4px rgba(255, 255, 255, 0.35);
+}

@@ -1,0 +1,236 @@
+.form {
+  width: 100%;
+}
+
+.title {
+  margin: 0 0 0.35rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.25;
+  color: var(--app-text);
+}
+
+.lede {
+  margin: 0 0 1.5rem;
+  font-size: 0.9375rem;
+  color: var(--app-text-muted);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--app-text);
+  background: var(--app-surface);
+  border: 1px solid var(--app-border-strong);
+  border-radius: var(--app-radius);
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.input::placeholder {
+  color: var(--app-text-faint);
+}
+
+.input:focus {
+  border-color: var(--app-primary);
+  box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.08);
+}
+
+.error {
+  margin: 0.25rem 0 0;
+  color: var(--app-danger);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+.hint {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--app-text-muted);
+}
+
+.hintOk {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--app-success);
+}
+
+.hintWarn {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--app-danger);
+}
+
+.hintMuted {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--app-text-faint);
+}
+
+.rootError {
+  margin-top: 0.25rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--app-danger);
+  background: var(--app-danger-bg);
+  border: 1px solid var(--app-danger-border);
+  border-radius: var(--app-radius);
+}
+
+.passwordWrap {
+  position: relative;
+}
+
+.passwordWrap .input {
+  padding-right: 2.5rem;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--app-text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.passwordToggle:hover {
+  color: var(--app-text);
+  background: var(--app-bg);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0 1rem;
+  font-size: 0.8125rem;
+  color: var(--app-text-faint);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--app-border);
+}
+
+.footerLink {
+  display: block;
+  width: 100%;
+  margin-top: 1.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.875rem;
+  color: var(--app-text-muted);
+  cursor: pointer;
+  text-align: center;
+}
+
+.footerLink:hover {
+  color: var(--app-primary);
+  text-decoration: underline;
+}
+
+.legalNotice {
+  margin: 1rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--app-text-faint);
+  text-align: center;
+}
+
+.legalLink {
+  color: var(--app-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legalLink:hover {
+  color: var(--app-text);
+}
+
+.inviteBanner {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin: 0 0 1.25rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--app-border-strong);
+  border-radius: var(--app-radius-lg);
+  background: var(--app-surface-muted);
+}
+
+.inviteBannerError {
+  border-color: var(--app-danger-border);
+  background: var(--app-danger-bg);
+}
+
+.inviteIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--app-radius);
+  background: var(--app-text);
+  color: var(--app-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.inviteBody {
+  min-width: 0;
+}
+
+.inviteTitle {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--app-text);
+}
+
+.inviteTitle strong {
+  font-weight: 600;
+}
+
+.inviteMeta {
+  margin: 0.25rem 0 0;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: var(--app-text-muted);
+}
+
+.inviteLoading {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--app-text-muted);
+}
+
+.inviteError {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--app-danger);
+}

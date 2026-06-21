@@ -1,0 +1,43 @@
+.resize {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: col-resize;
+}
+
+.handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  background: var(--app-surface);
+  color: var(--app-text-faint);
+  cursor: col-resize;
+  opacity: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition:
+    opacity 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.resize:hover .handle,
+.active .handle {
+  opacity: 1;
+}
+
+.handle:hover {
+  color: var(--app-text);
+  border-color: var(--app-border-strong);
+}

@@ -1,0 +1,90 @@
+{
+  "common": {
+    "loading": "Loading…",
+    "signOut": "Sign out"
+  },
+  "auth": {
+    "signIn": {
+      "title": "Sign in",
+      "lede": "Use your email and password to continue."
+    },
+    "signUp": {
+      "title": "Create account",
+      "lede": "Create your account to get started.",
+      "legalNoticePrefix": "By creating an account, you agree to our ",
+      "termsLink": "Terms of Service",
+      "legalNoticeMiddle": " and ",
+      "privacyLink": "Privacy Policy",
+      "legalNoticeSuffix": "."
+    }
+  },
+  "home": {
+    "title": "Welcome",
+    "lede": "Authenticated area placeholder. Replace this shell with your product UI."
+  },
+  "legalPrivacy": {
+    "metaTitle": "Privacy Policy | agentatlas",
+    "metaDescription": "How agentatlas collects, uses, and protects information.",
+    "eyebrow": "Legal · Privacy",
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: June 1, 2026",
+    "s1Title": "Overview",
+    "s1p1": "agentatlas (\"we,\" \"our,\" or \"us\") respects your privacy. This Privacy Policy explains what information we may collect when you use our website and platform (the \"Services\"), how we use it, and the choices available to you.",
+    "s1p2": "By using the Services, you acknowledge this policy. If you do not agree, please discontinue use of the Services.",
+    "s2Title": "Information we collect",
+    "s2p1": "Depending on how you interact with the Services, we may collect:",
+    "s2li1": "Technical data such as browser type, device type, operating system, and approximate region derived from IP address.",
+    "s2li2": "Usage data such as pages viewed, referring URLs, timestamps, and diagnostics that help us understand performance and errors.",
+    "s2li3": "Information you voluntarily submit (for example, when you create an account, contact us, or use product features), including profile details and the content of your messages.",
+    "s2li4": "Cookies and similar technologies (see Cookies below).",
+    "googleTitle": "Sign in with Google",
+    "googleP1": "If you create or access an account using \"Sign in with Google\" (or an equivalent Google sign-in button), authentication is handled by Google LLC through Google OAuth / Google Identity Services. Google’s screens collect your credentials; we do not receive your Google password.",
+    "googleP2": "Subject to the permissions you grant on Google’s consent screen, we may receive data such as a stable Google user identifier, your name, email address, profile picture URL, and basic account flags (for example, whether your email appears verified to Google). We use this information to register and authenticate you, secure your account, send service-related communications when appropriate, and detect abuse.",
+    "googleP3": "Google processes personal data under its own policies. You can learn how Google uses data at https://policies.google.com/privacy and manage or revoke third-party access to your Google account in your Google Account security settings. Where we store or combine Google-provided data with other profile or usage data, we treat it as described in the sections above.",
+    "s3Title": "How we use information",
+    "s3p1": "We use the information above to operate, secure, and improve the Services; to provide agent workspace features; to understand aggregate usage patterns; to respond to inquiries; and to comply with law or protect rights and safety.",
+    "s3p2": "We do not sell your personal information. We do not use your data to train general-purpose AI models solely from your visit to this policy page; if other services (such as integrated tools or third-party links) apply different rules, their respective policies govern those interactions.",
+    "s4Title": "Cookies and analytics",
+    "s4p1": "We may use cookies or similar technologies for essential functionality, preferences, or analytics. You can control many cookies through your browser settings. Disabling cookies may affect certain features.",
+    "s4p2": "Where we use third-party analytics or error reporting, those providers may process limited technical data according to their own privacy policies.",
+    "s5Title": "Sharing and subprocessors",
+    "s5p1": "We may share information with vendors who assist us in hosting, analytics, security, or communications, subject to appropriate safeguards. We may also disclose information if required by law, regulation, legal process, or to protect the rights, property, or safety of our users or the public.",
+    "s6Title": "Retention and security",
+    "s6p1": "We retain information only as long as reasonably necessary for the purposes described here and as required by law. No method of transmission over the internet is completely secure; we employ reasonable measures designed to protect the information we hold.",
+    "s6p2": "Depending on your location, you may have rights regarding access, correction, deletion, objection, or portability of personal data. To exercise applicable rights, contact us using the details published on the Site or in communications you receive from us.",
+    "s7Title": "Changes to this policy",
+    "s7p1": "We may update this Privacy Policy from time to time. The revised version will be indicated by an updated \"Last updated\" date at the top of this page. Continued use of the Services after changes constitutes acceptance of the updated policy.",
+    "s8Title": "Contact",
+    "s8p1": "Questions about this Privacy Policy can be directed to the contact channel listed on the Site."
+  },
+  "legalTerms": {
+    "metaTitle": "Terms of Service | agentatlas",
+    "metaDescription": "Terms governing your use of the agentatlas platform.",
+    "eyebrow": "Legal · Terms",
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: June 1, 2026",
+    "s1Title": "Agreement",
+    "s1p1": "These Terms of Service (\"Terms\") govern your access to and use of the agentatlas website, platform, and related content or features (collectively, the \"Services\").",
+    "s1p2": "By accessing or using the Services, you agree to these Terms. If you do not agree, do not use the Services.",
+    "s2Title": "Eligibility and acceptable use",
+    "s2p1": "You must comply with applicable laws and must not misuse the Services—including attempting to probe, scan, or test vulnerabilities without authorization; interfering with availability; scraping in a manner that harms performance; distributing malware; impersonating others; or using the Services for unlawful, harmful, or harassing activity.",
+    "googleTitle": "Sign in with Google",
+    "googleP1": "You may register or sign in using Google. When you do, you confirm that the Google account is yours (or that you have permission to use it) and that the information you provide through Google is accurate to the best of your knowledge.",
+    "googleP2": "Your relationship with Google—including authentication, account security on Google’s side, and Google’s collection and use of data—is governed solely by your agreement with Google (including Google’s Terms of Service and Privacy Policy). We are not a party to that agreement and are not responsible for Google’s services, availability, or policy changes.",
+    "googleP3": "We may limit, suspend, or terminate access to the Services if we reasonably believe a Google-linked account is compromised, shared in breach of these Terms, or used in a way that harms the Services or other users. Where we offer account settings, you may be able to add or remove sign-in methods subject to technical and security requirements.",
+    "s3Title": "Intellectual property",
+    "s3p1": "The Services, including branding, text, graphics, layouts, and software, are owned by agentatlas or its licensors and are protected by intellectual property laws except where otherwise noted (for example, third-party components made available under their respective licenses).",
+    "s3p2": "Unless we expressly grant permission, you may not copy, modify, distribute, sell, or lease any part of the Services or reverse engineer any software except where such restrictions are prohibited by law.",
+    "s4Title": "Third-party links and services",
+    "s4p1": "The Services may link to or integrate with third-party websites, tools, payment providers, or agent services. Those offerings are governed by their own terms and policies. We are not responsible for third-party content or practices.",
+    "s4p2": "Transactions or engagements facilitated through the platform may be subject to additional terms between you and other participants or providers.",
+    "s5Title": "Disclaimers",
+    "s5p1": "The Services are provided \"as is\" and \"as available\" without warranties of any kind, whether express, implied, or statutory, including implied warranties of merchantability, fitness for a particular purpose, title, and non-infringement, to the fullest extent permitted by law.",
+    "s6Title": "Limitation of liability",
+    "s6p1": "To the fullest extent permitted by law, agentatlas and its contributors will not be liable for any indirect, incidental, special, consequential, or exemplary damages, or any loss of profits, revenues, goodwill, or data arising from your use of—or inability to use—the Services, even if advised of the possibility of such damages. Our aggregate liability for claims relating to the Services is limited to the greater of fifty U.S. dollars (USD $50) or the amounts you paid us for the Services in the twelve months preceding the claim, if any.",
+    "s7Title": "Changes",
+    "s7p1": "We may modify these Terms at any time. We will post the updated Terms on the Site and update the \"Last updated\" date. Continued use after changes constitutes acceptance. If you do not agree, stop using the Services.",
+    "s8Title": "General",
+    "s8p1": "These Terms are governed by the laws of the jurisdiction specified in any separate written agreement between you and us; in the absence of such agreement, the laws of the State of Delaware, United States (excluding conflict-of-law rules) apply. If any provision is held invalid, the remaining provisions remain in effect. These Terms constitute the entire agreement between you and us regarding the Services."
+  }
+}

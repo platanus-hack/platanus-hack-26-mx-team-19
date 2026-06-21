@@ -1,0 +1,46 @@
+.shell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: var(--app-radius);
+  padding: 0.75rem 1rem;
+  min-width: 0;
+}
+
+.shellDark {
+  background: #0f1114;
+}
+
+.shellLight {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+}
+
+.textWrap {
+  position: relative;
+  min-width: 0;
+}
+
+.title {
+  display: inline-block;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 12rem;
+}
+
+.titleDark {
+  color: #f4f4f5;
+}
+
+.titleLight {
+  color: var(--app-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .textWrap {
+    transition: none;
+  }
+}

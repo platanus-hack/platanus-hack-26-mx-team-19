@@ -1,0 +1,55 @@
+---
+description: agentatlas-platform — repos, routes, swarms, and agent guidelines
+alwaysApply: true
+---
+
+# agentatlas-platform — project context
+
+Next.js frontend for **agentatlas**. Paired with **`agentatlas-services`** (same parent folder: `Development/agentatlas/`).
+
+| Repo | Role |
+|------|------|
+| **`agentatlas-platform`** (this repo) | Frontend — landing, auth, swarm editor, test panel, admin |
+| **`agentatlas-services`** | NestJS backend — `/api/v1`, swarms, inference, tools |
+
+**HTTP contracts live in `agentatlas-services`** — verify DTOs there before changing the client.
+
+## Product scope
+
+Swarms only — graph editor, test runs, agent skill documentation. No companies board, onboarding, or marketplace in this repo.
+
+Public home: hero + setup command (`set up {APP_URL}/skill.md`) + architecture pattern cards. Copy in `src/content/landing.ts`.
+
+Agent skill: `.cursor/skills/agentatlas-swarms/SKILL.md` · public URL `/skill.md` · setup command in `src/lib/agentatlas-skill.ts`.
+
+## Key routes
+
+- `/` — landing (skill doc onboarding)
+- `/dashboard/swarms` — user swarms list + editor
+- `/admin/swarms` — admin swarms
+- `/admin/users` — user management
+
+## Swarm editor
+
+- UI: `src/components/admin/swarms/`
+- Backend contract: `../agentatlas-services/docs/SWARMS-WORKSPACE.md`
+- SSE test runs: `POST /swarms/:id/run/stream` — see `../agentatlas-services/docs/INFERENCE.md`
+- Worker tools: `docs/SWARMS-TOOLS.md` + `../agentatlas-services/docs/TOOLS.md`
+
+## API client & auth
+
+- `src/data/api/server/index.ts` — `createServices()`
+- Auth state: `src/data/providers/ServicesProvider.tsx`
+
+## Code conventions
+
+- **Landing copy:** `src/content/landing.ts` — do not scatter marketing strings across section components.
+- **Styles:** `--app-*` tokens in `src/app/globals.css`; component styles via styled-jsx or colocated CSS modules. See `docs/COMPONENTS.md`, `docs/COMPONENT-STYLES.md`, `docs/LANDING.md`.
+- **Components:** `ui/` (generic), `auth/`, `layout/`, `landing/`, feature folders (e.g. `admin/swarms/`). Wrap third-party UI in isolated components — do not paste large snippets into pages or shells.
+- **i18n:** `en` + `es` in `src/messages/`; hook in `src/i18n/client.ts`; locale routing in `src/proxy.ts`.
+
+## Agent behavior
+
+- Minimize scope; match existing patterns (`ServicesProvider`, `AuthGuard`, `@/components/...`).
+- Prefer extending `landing.ts` and existing swarm editor components over one-off bloat.
+- When adding UI dependencies, isolate them in a wrapper under `ui/` or the feature folder.

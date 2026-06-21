@@ -1,0 +1,246 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 42rem;
+}
+
+.hint,
+.footerHint {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--app-text-faint);
+  text-align: center;
+}
+
+.hint {
+  margin-bottom: 0.5rem;
+}
+
+.footerHint {
+  margin-top: 0.5rem;
+  max-width: 28rem;
+  line-height: 1.45;
+}
+
+.shell {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  min-width: 0;
+  padding: 1px;
+  border-radius: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(20, 99, 255, 0.22) 0%,
+    rgba(212, 212, 212, 0.65) 42%,
+    rgba(20, 99, 255, 0.16) 100%
+  );
+  box-shadow: 0 10px 28px -18px rgba(10, 10, 10, 0.18);
+  transition: box-shadow 0.2s ease;
+}
+
+.shell:hover {
+  box-shadow:
+    0 12px 32px -16px rgba(10, 10, 10, 0.2),
+    0 0 0 1px rgba(20, 99, 255, 0.06);
+}
+
+.inner {
+  display: inline-flex;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  align-items: stretch;
+  gap: 0.5rem;
+  padding: 0.3125rem;
+  border-radius: calc(1rem - 1px);
+  background: linear-gradient(180deg, #ffffff 0%, var(--app-surface-muted) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.field {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(0.875rem - 1px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(244, 244, 242, 0.95) 100%),
+    var(--app-surface);
+  box-shadow:
+    inset 0 1px 2px rgba(10, 10, 10, 0.04),
+    inset 0 0 0 1px rgba(10, 10, 10, 0.04),
+    0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.commandScroll {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.375rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.commandScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.chevron {
+  flex-shrink: 0;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  color: var(--app-text-faint);
+  opacity: 0.85;
+}
+
+.cursor {
+  flex-shrink: 0;
+  width: 1.5px;
+  height: 1em;
+  border-radius: 1px;
+  background: var(--app-text);
+  opacity: 0.72;
+  animation: skill-cursor-blink 1.05s step-end infinite;
+}
+
+.command {
+  min-width: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--app-text);
+  user-select: all;
+}
+
+.setupWord {
+  color: var(--app-text-faint);
+  letter-spacing: 0.01em;
+}
+
+.setupUrl {
+  color: var(--app-text);
+  letter-spacing: -0.01em;
+}
+
+.divider {
+  align-self: center;
+  width: 1px;
+  height: 1.375rem;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--app-border-strong) 18%,
+    var(--app-border-strong) 82%,
+    transparent 100%
+  );
+  opacity: 0.85;
+}
+
+.copy {
+  display: flex;
+  flex-shrink: 0;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  width: 2.125rem;
+  height: 2.125rem;
+  margin-right: 0.125rem;
+  color: var(--app-text-muted);
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: var(--app-shadow-sm);
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.12s ease;
+}
+
+.copy:hover {
+  color: var(--app-text);
+  background: #ffffff;
+  border-color: var(--app-border-strong);
+  box-shadow: var(--app-shadow-md);
+}
+
+.copy:active {
+  transform: translateY(0.5px);
+}
+
+.copyDone {
+  color: var(--app-success);
+  background: var(--app-success-bg);
+  border-color: rgba(22, 163, 74, 0.22);
+}
+
+.copy:focus-visible {
+  outline: none;
+  box-shadow: var(--app-btn-focus-ring);
+}
+
+.copyIcon {
+  width: 0.9375rem;
+  height: 0.9375rem;
+}
+
+@keyframes skill-cursor-blink {
+  0%,
+  49% {
+    opacity: 0.72;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 640px) {
+  .shell {
+    border-radius: 999px;
+  }
+
+  .inner {
+    gap: 0.625rem;
+    padding: 0.375rem;
+    border-radius: 999px;
+  }
+
+  .field {
+    padding: 0.625rem 1rem;
+    border-radius: 999px;
+  }
+
+  .command {
+    font-size: 0.9375rem;
+  }
+
+  .copy {
+    width: 2.375rem;
+    height: 2.375rem;
+    margin-right: 0.1875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+    opacity: 0.72;
+  }
+
+  .shell,
+  .copy {
+    transition: none;
+  }
+}

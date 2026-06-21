@@ -1,0 +1,99 @@
+.root {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--app-primary);
+}
+
+.tile {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.tileFrom0 {
+  animation: logoTileFrom0 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.tileFrom1 {
+  animation: logoTileFrom1 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.tileFrom2 {
+  animation: logoTileFrom2 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.tileFrom3 {
+  animation: logoTileFrom3 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes logoTileFrom0 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(5.5, 0);
+  }
+  50% {
+    transform: translate(5.5, 5.5);
+  }
+  75% {
+    transform: translate(0, 5.5);
+  }
+}
+
+@keyframes logoTileFrom1 {
+  0%,
+  100% {
+    transform: translate(5.5, 0);
+  }
+  25% {
+    transform: translate(5.5, 5.5);
+  }
+  50% {
+    transform: translate(0, 5.5);
+  }
+  75% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes logoTileFrom2 {
+  0%,
+  100% {
+    transform: translate(5.5, 5.5);
+  }
+  25% {
+    transform: translate(0, 5.5);
+  }
+  50% {
+    transform: translate(0, 0);
+  }
+  75% {
+    transform: translate(5.5, 0);
+  }
+}
+
+@keyframes logoTileFrom3 {
+  0%,
+  100% {
+    transform: translate(0, 5.5);
+  }
+  25% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(5.5, 0);
+  }
+  75% {
+    transform: translate(5.5, 5.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tileFrom0,
+  .tileFrom1,
+  .tileFrom2,
+  .tileFrom3 {
+    animation: none;
+  }
+}

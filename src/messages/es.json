@@ -1,0 +1,90 @@
+{
+  "common": {
+    "loading": "Cargando…",
+    "signOut": "Cerrar sesión"
+  },
+  "auth": {
+    "signIn": {
+      "title": "Iniciar sesión",
+      "lede": "Usa tu correo y contraseña para continuar."
+    },
+    "signUp": {
+      "title": "Crear cuenta",
+      "lede": "Crea tu cuenta para comenzar.",
+      "legalNoticePrefix": "Al crear una cuenta, aceptas nuestros ",
+      "termsLink": "Términos de servicio",
+      "legalNoticeMiddle": " y la ",
+      "privacyLink": "Política de privacidad",
+      "legalNoticeSuffix": "."
+    }
+  },
+  "home": {
+    "title": "Bienvenido",
+    "lede": "Área autenticada de ejemplo. Reemplaza esta vista con la UI de tu producto."
+  },
+  "legalPrivacy": {
+    "metaTitle": "Política de privacidad | agentatlas",
+    "metaDescription": "Cómo agentatlas recopila, usa y protege la información.",
+    "eyebrow": "Legal · Privacidad",
+    "title": "Política de privacidad",
+    "lastUpdated": "Última actualización: 1 de junio de 2026",
+    "s1Title": "Resumen",
+    "s1p1": "agentatlas («nosotros», «nuestro» o «nos») respeta tu privacidad. Esta Política de privacidad explica qué información podemos recopilar cuando utilizas nuestro sitio web y plataforma (los «Servicios»), cómo la usamos y las opciones disponibles para ti.",
+    "s1p2": "Al utilizar los Servicios, reconoces esta política. Si no estás de acuerdo, deja de utilizar los Servicios.",
+    "s2Title": "Información que recopilamos",
+    "s2p1": "Según cómo interactúes con los Servicios, podemos recopilar:",
+    "s2li1": "Datos técnicos como tipo de navegador, tipo de dispositivo, sistema operativo y región aproximada derivada de la dirección IP.",
+    "s2li2": "Datos de uso como páginas visitadas, URL de referencia, marcas de tiempo y diagnósticos que nos ayudan a entender el rendimiento y los errores.",
+    "s2li3": "Información que envías voluntariamente (por ejemplo, al crear una cuenta, contactarnos o usar funciones del producto), incluidos datos de perfil y el contenido de tus mensajes.",
+    "s2li4": "Cookies y tecnologías similares (consulta Cookies más abajo).",
+    "googleTitle": "Iniciar sesión con Google",
+    "googleP1": "Si creas o accedes a una cuenta mediante «Iniciar sesión con Google» (u otro botón equivalente de Google), la autenticación la gestiona Google LLC a través de Google OAuth / Google Identity Services. Las pantallas de Google recopilan tus credenciales; nosotros no recibimos tu contraseña de Google.",
+    "googleP2": "Según los permisos que concedas en la pantalla de consentimiento de Google, podemos recibir datos como un identificador estable de usuario de Google, tu nombre, dirección de correo electrónico, URL de foto de perfil y señales básicas de la cuenta (por ejemplo, si tu correo aparece verificado para Google). Usamos esta información para registrarte y autenticarte, proteger tu cuenta, enviar comunicaciones relacionadas con el servicio cuando corresponda y detectar abusos.",
+    "googleP3": "Google trata los datos personales según sus propias políticas. Puedes conocer cómo Google usa los datos en https://policies.google.com/privacy y gestionar o revocar el acceso de terceros a tu cuenta de Google en la configuración de seguridad de tu cuenta de Google. Cuando almacenamos o combinamos datos proporcionados por Google con otros datos de perfil o de uso, los tratamos como se describe en las secciones anteriores.",
+    "s3Title": "Cómo usamos la información",
+    "s3p1": "Usamos la información anterior para operar, proteger y mejorar los Servicios; ofrecer funciones del espacio de trabajo de agentes; entender patrones de uso agregados; responder consultas; y cumplir la ley o proteger derechos y seguridad.",
+    "s3p2": "No vendemos tu información personal. No usamos tus datos para entrenar modelos de IA de propósito general únicamente por visitar esta página; si otros servicios (como herramientas integradas o enlaces de terceros) aplican reglas distintas, sus respectivas políticas rigen esas interacciones.",
+    "s4Title": "Cookies y analítica",
+    "s4p1": "Podemos usar cookies o tecnologías similares para funcionalidad esencial, preferencias o analítica. Puedes controlar muchas cookies desde la configuración del navegador. Desactivarlas puede afectar ciertas funciones.",
+    "s4p2": "Cuando usamos analítica o informes de errores de terceros, esos proveedores pueden procesar datos técnicos limitados según sus propias políticas de privacidad.",
+    "s5Title": "Compartición y subprocesadores",
+    "s5p1": "Podemos compartir información con proveedores que nos ayudan con alojamiento, analítica, seguridad o comunicaciones, con las salvaguardas adecuadas. También podemos divulgar información si la ley, una regulación, un proceso legal lo exige, o para proteger los derechos, la propiedad o la seguridad de nuestros usuarios o del público.",
+    "s6Title": "Conservación y seguridad",
+    "s6p1": "Conservamos la información solo el tiempo razonablemente necesario para los fines descritos aquí y según exija la ley. Ningún método de transmisión por internet es completamente seguro; aplicamos medidas razonables para proteger la información que conservamos.",
+    "s6p2": "Según tu ubicación, puedes tener derechos de acceso, rectificación, supresión, oposición o portabilidad de datos personales. Para ejercer los derechos aplicables, contáctanos mediante el canal publicado en el sitio o en las comunicaciones que recibas de nosotros.",
+    "s7Title": "Cambios en esta política",
+    "s7p1": "Podemos actualizar esta Política de privacidad periódicamente. La versión revisada se indicará con una fecha de «Última actualización» actualizada al inicio de esta página. El uso continuado de los Servicios tras los cambios constituye la aceptación de la política actualizada.",
+    "s8Title": "Contacto",
+    "s8p1": "Las preguntas sobre esta Política de privacidad pueden dirigirse al canal de contacto indicado en el sitio."
+  },
+  "legalTerms": {
+    "metaTitle": "Términos de servicio | agentatlas",
+    "metaDescription": "Términos que rigen el uso de la plataforma agentatlas.",
+    "eyebrow": "Legal · Términos",
+    "title": "Términos de servicio",
+    "lastUpdated": "Última actualización: 1 de junio de 2026",
+    "s1Title": "Acuerdo",
+    "s1p1": "Estos Términos de servicio («Términos») rigen tu acceso y uso del sitio web, la plataforma y el contenido o las funciones relacionadas de agentatlas (en conjunto, los «Servicios»).",
+    "s1p2": "Al acceder o utilizar los Servicios, aceptas estos Términos. Si no estás de acuerdo, no utilices los Servicios.",
+    "s2Title": "Elegibilidad y uso aceptable",
+    "s2p1": "Debes cumplir las leyes aplicables y no hacer un uso indebido de los Servicios, incluido intentar sondear, escanear o probar vulnerabilidades sin autorización; interferir con la disponibilidad; hacer scraping de forma que perjudique el rendimiento; distribuir malware; suplantar a otros; o usar los Servicios para actividades ilegales, dañinas o de acoso.",
+    "googleTitle": "Iniciar sesión con Google",
+    "googleP1": "Puedes registrarte o iniciar sesión con Google. Al hacerlo, confirmas que la cuenta de Google es tuya (o que tienes permiso para usarla) y que la información que proporcionas a través de Google es exacta según tu mejor conocimiento.",
+    "googleP2": "Tu relación con Google —incluida la autenticación, la seguridad de la cuenta en el lado de Google y la recopilación y el uso de datos por parte de Google— se rige únicamente por tu acuerdo con Google (incluidos los Términos de servicio y la Política de privacidad de Google). No somos parte de ese acuerdo ni responsables de los servicios, la disponibilidad o los cambios de política de Google.",
+    "googleP3": "Podemos limitar, suspender o terminar el acceso a los Servicios si creemos razonablemente que una cuenta vinculada a Google está comprometida, se comparte en violación de estos Términos o se usa de forma que perjudique los Servicios u otros usuarios. Cuando ofrezcamos configuración de cuenta, podrás añadir o quitar métodos de inicio de sesión según requisitos técnicos y de seguridad.",
+    "s3Title": "Propiedad intelectual",
+    "s3p1": "Los Servicios, incluida la marca, textos, gráficos, diseños y software, son propiedad de agentatlas o sus licenciantes y están protegidos por las leyes de propiedad intelectual, salvo que se indique lo contrario (por ejemplo, componentes de terceros disponibles bajo sus respectivas licencias).",
+    "s3p2": "Salvo que concedamos permiso expreso, no puedes copiar, modificar, distribuir, vender ni arrendar ninguna parte de los Servicios ni realizar ingeniería inversa del software, excepto donde la ley prohíba tales restricciones.",
+    "s4Title": "Enlaces y servicios de terceros",
+    "s4p1": "Los Servicios pueden enlazar o integrarse con sitios web, herramientas, proveedores de pago o servicios de agentes de terceros. Esas ofertas se rigen por sus propios términos y políticas. No somos responsables del contenido ni de las prácticas de terceros.",
+    "s4p2": "Las transacciones o relaciones facilitadas a través de la plataforma pueden estar sujetas a términos adicionales entre tú y otros participantes o proveedores.",
+    "s5Title": "Exenciones de responsabilidad",
+    "s5p1": "Los Servicios se proporcionan «tal cual» y «según disponibilidad» sin garantías de ningún tipo, ya sean expresas, implícitas o legales, incluidas las garantías implícitas de comerciabilidad, idoneidad para un fin particular, titularidad y no infracción, en la máxima medida permitida por la ley.",
+    "s6Title": "Limitación de responsabilidad",
+    "s6p1": "En la máxima medida permitida por la ley, agentatlas y sus colaboradores no serán responsables de daños indirectos, incidentales, especiales, consecuentes o ejemplares, ni de pérdida de beneficios, ingresos, fondo de comercio o datos derivados de tu uso o imposibilidad de uso de los Servicios, incluso si se les advirtió de esa posibilidad. Nuestra responsabilidad agregada por reclamaciones relacionadas con los Servicios se limita al mayor de cincuenta dólares estadounidenses (USD $50) o los importes que nos hayas pagado por los Servicios en los doce meses anteriores a la reclamación, si los hubiera.",
+    "s7Title": "Cambios",
+    "s7p1": "Podemos modificar estos Términos en cualquier momento. Publicaremos los Términos actualizados en el sitio y actualizaremos la fecha de «Última actualización». El uso continuado tras los cambios constituye la aceptación. Si no estás de acuerdo, deja de utilizar los Servicios.",
+    "s8Title": "Disposiciones generales",
+    "s8p1": "Estos Términos se rigen por las leyes de la jurisdicción indicada en cualquier acuerdo escrito separado entre tú y nosotros; en su ausencia, se aplican las leyes del Estado de Delaware, Estados Unidos (sin reglas de conflicto de leyes). Si alguna disposición se considera inválida, las restantes permanecen en vigor. Estos Términos constituyen el acuerdo completo entre tú y nosotros respecto a los Servicios."
+  }
+}

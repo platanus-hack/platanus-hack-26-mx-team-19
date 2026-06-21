@@ -1,0 +1,58 @@
+/**
+ * Toastify overrides — light theme aligned with `globals.css` tokens.
+ */
+
+.app-toastify-host.Toastify__toast-container {
+  --toastify-toast-width: 22rem;
+  --toastify-toast-bd-radius: var(--app-radius);
+  --toastify-toast-min-height: 3.25rem;
+  --toastify-toast-padding: 0.75rem 1rem;
+  --toastify-toast-background: var(--app-surface);
+  --toastify-toast-shadow: var(--app-shadow-md);
+  --toastify-font-family: var(--app-font);
+  --toastify-z-index: 10050;
+  --toastify-text-color-light: var(--app-text);
+  --toastify-color-progress-success: var(--app-success);
+  --toastify-color-progress-error: var(--app-danger);
+  --toastify-color-progress-info: var(--app-primary);
+  --toastify-color-progress-warning: #d97706;
+  --toastify-icon-color-success: var(--app-success);
+  --toastify-icon-color-error: var(--app-danger);
+  --toastify-icon-color-info: var(--app-primary);
+  --toastify-icon-color-warning: #d97706;
+}
+
+.app-toastify-host .Toastify__toast {
+  border: 1px solid var(--app-border);
+  color: var(--app-text);
+}
+
+.app-toastify-host .Toastify__toast--success {
+  border-color: #bbf7d0;
+}
+
+.app-toastify-host .Toastify__toast--error {
+  border-color: var(--app-danger-border);
+}
+
+.app-toastify-host .Toastify__toast-body {
+  padding: 0.125rem 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.app-toastify-host .Toastify__close-button {
+  align-self: flex-start;
+  margin-top: 0.125rem;
+  color: var(--app-text-muted);
+  opacity: 1;
+}
+
+.app-toastify-host .Toastify__close-button:hover,
+.app-toastify-host .Toastify__close-button:focus {
+  color: var(--app-text);
+}
+
+.app-toastify-host .Toastify__progress-bar {
+  height: 3px;
+}

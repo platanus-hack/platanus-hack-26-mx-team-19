@@ -1,0 +1,29 @@
+.grid {
+  display: grid;
+  width: fit-content;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.dot {
+  height: 6px;
+  width: 6px;
+  border-radius: 2px;
+  transition: background-color 0.08s ease;
+}
+
+.dotLight {
+  background: rgba(10, 10, 10, 0.1);
+}
+
+.dotLightActive {
+  background: var(--app-text);
+}
+
+.dotDark {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.dotDarkActive {
+  background: #ffffff;
+}
