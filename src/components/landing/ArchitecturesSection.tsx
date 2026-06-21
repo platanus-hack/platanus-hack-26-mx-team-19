@@ -166,6 +166,12 @@ function ArchitectureCard({ entry }: { entry: ArchitectureEntry }) {
 
   return (
     <article className={styles.card}>
+      <div className={styles.cardChrome} aria-hidden>
+        <span className={styles.corner} data-pos="tl" />
+        <span className={styles.corner} data-pos="tr" />
+        <span className={styles.corner} data-pos="bl" />
+        <span className={styles.corner} data-pos="br" />
+      </div>
       <ArchitectureDiagram topology={entry.topology} />
       <div className={styles.cardBody}>
         <div className={styles.cardHead}>
@@ -269,7 +275,9 @@ export default function ArchitecturesSection() {
       variant="compact"
       aria-labelledby="landing-architectures-title"
     >
-      <LandingContainer>
+      <div className={styles.catalog}>
+        <div className={styles.catalogAtmosphere} aria-hidden />
+        <LandingContainer className={styles.catalogInner}>
         <header className={styles.header}>
           <p className={styles.eyebrow}>{architectures.eyebrow}</p>
           <h2 id="landing-architectures-title" className={styles.srOnly}>
@@ -278,15 +286,16 @@ export default function ArchitecturesSection() {
           <p className={styles.intro}>{architectures.intro}</p>
         </header>
 
-        <ArchitectureGrid entries={featured} />
+          <ArchitectureGrid entries={featured} />
 
-        {extended.length > 0 ? (
-          <div className={styles.extended}>
-            <p className={styles.extendedEyebrow}>{architectures.extendedEyebrow}</p>
-            <ArchitectureGrid entries={extended} />
-          </div>
-        ) : null}
-      </LandingContainer>
+          {extended.length > 0 ? (
+            <div className={styles.extended}>
+              <p className={styles.extendedEyebrow}>{architectures.extendedEyebrow}</p>
+              <ArchitectureGrid entries={extended} />
+            </div>
+          ) : null}
+        </LandingContainer>
+      </div>
     </LandingSection>
   )
 }

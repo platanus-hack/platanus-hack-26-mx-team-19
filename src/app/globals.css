@@ -42,6 +42,7 @@
 
   /* Shape */
   --app-radius: 8px;
+  --app-radius-md: 10px;
   --app-radius-lg: 12px;
   --app-radius-pill: 999px;
 
