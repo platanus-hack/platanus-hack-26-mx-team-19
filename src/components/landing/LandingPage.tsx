@@ -5,22 +5,39 @@ import ArchitecturesSection from "@/components/landing/ArchitecturesSection"
 import HeroSection from "@/components/landing/sections/HeroSection"
 import LandingFooter from "@/components/landing/sections/LandingFooter"
 
+/** Pulls the catalog up over the hero mesh while keeping document height for scroll. */
+const ARCH_STACK_LIFT = "calc(100dvh - 3.75rem - 12rem)"
+
 export default function LandingPage() {
   return (
     <div className="page landing-snap">
       <LandingHeader />
       <main className="main">
-        <HeroSection />
-        <div id="landing-architectures-panel" className="belowHero">
-          <ArchitecturesSection />
-          <LandingFooter />
+        <div className="heroStage">
+          <HeroSection />
+          <div
+            id="landing-architectures-panel"
+            className="archStack"
+            style={
+              {
+                "--arch-stack-lift": ARCH_STACK_LIFT,
+              } as React.CSSProperties
+            }
+          >
+            <ArchitecturesSection />
+          </div>
         </div>
+        <LandingFooter />
       </main>
       <style jsx global>{`
         @media (prefers-reduced-motion: no-preference) {
           html:has(.landing-snap) {
-            scroll-snap-type: y mandatory;
+            scroll-snap-type: y proximity;
           }
+        }
+        .archStack :global(.section--compact) {
+          background: transparent;
+          padding-top: 0;
         }
       `}</style>
       <style jsx>{`
@@ -32,21 +49,15 @@ export default function LandingPage() {
           position: relative;
           isolation: isolate;
         }
-        .belowHero {
+        .heroStage {
           position: relative;
-          z-index: 2;
-          min-height: calc(100dvh - 3.75rem);
-          padding-top: 3.75rem;
-          box-sizing: border-box;
-          background: var(--app-bg);
-          scroll-snap-align: start;
-          scroll-snap-stop: always;
+          isolation: isolate;
         }
-        @media (prefers-reduced-motion: reduce) {
-          .belowHero {
-            scroll-snap-align: none;
-            scroll-snap-stop: normal;
-          }
+        .archStack {
+          position: relative;
+          z-index: 3;
+          margin-top: calc(-1 * var(--arch-stack-lift));
+          padding-top: var(--arch-stack-lift);
         }
       `}</style>
     </div>
