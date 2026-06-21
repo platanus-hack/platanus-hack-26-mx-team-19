@@ -123,3 +123,91 @@ export function buildArchitectureCatalogPlainLines(): string[] {
 
   return [...landing, "", "Extended patterns:", ...extended]
 }
+
+function formatEntryPlain(entry: ArchitectureEntry): string {
+  const badge = entry.badge ? ` (${entry.badge})` : ""
+  const research = entry.complexity === "research" ? " · Research only" : ""
+  const frameworkBlock = entry.framework_notes
+    ? [
+        "",
+        "Framework notes:",
+        ...Object.entries(entry.framework_notes).map(([framework, note]) => `- ${framework}: ${note}`),
+      ]
+    : []
+  const evidenceBlock = entry.evidence ? ["", `Evidence: ${entry.evidence}`] : []
+  const refsBlock =
+    entry.references && entry.references.length > 0
+      ? [
+          "",
+          "References:",
+          ...entry.references.map((r) => (r.url ? `- ${r.title}: ${r.url}` : `- ${r.title}`)),
+        ]
+      : []
+
+  return [
+    `${entry.name}${badge}`,
+    `Category: ${entry.category} · Layer: ${entry.layer}${research}`,
+    "",
+    entry.summary,
+    "",
+    entry.description,
+    "",
+    `Problem: ${entry.problem}`,
+    "",
+    "When to use:",
+    formatList(entry.when_to_use),
+    "",
+    "When not to use:",
+    formatList(entry.when_not_to_use),
+    "",
+    "Forces:",
+    formatList(entry.forces),
+    "",
+    `Operational profile (1–5): verification ${entry.verification}, traceability ${entry.traceability}, latency ${entry.latency}, cost ${entry.cost}`,
+    "",
+    `Agents: ${entry.agent_count.sweet_spot} (typical ${entry.agent_count.min}–${entry.agent_count.max})`,
+    "",
+    `Graph: ${formatGraph(entry)}`,
+    ...frameworkBlock,
+    ...evidenceBlock,
+    ...refsBlock,
+  ].join("\n")
+}
+
+/** Full plain-text catalogue for /llm.txt (English canonical). */
+export function buildArchitectureCatalogPlainText(): string {
+  const { intro, sweetSpot } = architectureCatalogSection
+  const featured = architectureCatalog.filter((entry) => entry.featured)
+  const extended = architectureCatalog.filter((entry) => !entry.featured)
+
+  const sweetSpotPlain = sweetSpot.replace(/\*\*/g, "")
+
+  const sections = [
+    intro,
+    "",
+    ...featured.flatMap((entry, index) => {
+      const block = formatEntryPlain(entry)
+      return index < featured.length - 1 ? [block, "", "---", ""] : [block]
+    }),
+  ]
+
+  if (extended.length > 0) {
+    sections.push(
+      "",
+      "---",
+      "",
+      "Extended patterns",
+      "",
+      "Additional topologies documented for agents — included in the skill catalogue.",
+      "",
+      ...extended.flatMap((entry, index) => {
+        const block = formatEntryPlain(entry)
+        return index < extended.length - 1 ? [block, "", "---", ""] : [block]
+      }),
+    )
+  }
+
+  sections.push("", sweetSpotPlain)
+
+  return sections.join("\n")
+}

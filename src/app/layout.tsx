@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     template: "%s · agentatlas",
   },
   description: defaultDescription,
+  alternates: {
+    types: {
+      "text/plain": [{ url: "/llm.txt", title: "LLM site summary" }],
+    },
+  },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },

@@ -1,99 +1,73 @@
-import { buildArchitectureCatalogPlainLines } from "@/lib/architecture-markdown"
-import { landingContent } from "@/content/landing"
-import { AGENTATLAS_AGENT_SETUP_COMMAND } from "@/lib/agentatlas-skill"
+import { buildArchitectureCatalogPlainText } from "@/lib/architecture-markdown"
+import { architectureCatalogSection } from "@/content/architectures"
+import en from "@/messages/en.json"
+import { AGENTATLAS_AGENT_SETUP_COMMAND, AGENTATLAS_SWARM_SKILL_PUBLIC_URL } from "@/lib/agentatlas-skill"
 import { NEXT_PUBLIC_APP_URL } from "@/config/env"
 
 const siteTitle = "agentatlas — swarm documentation for coding agents"
 const siteDescription =
   "Canonical skill doc and patterns for multi-agent swarms — graph topologies, workers, sub-agents, tools, and test runs."
 
-function section(title: string, lines: string[]): string {
-  return [`## ${title}`, "", ...lines, ""].join("\n")
+function section(title: string, body: string): string {
+  return [`## ${title}`, "", body.trimEnd(), ""].join("\n")
 }
 
-function bullet(title: string, description: string): string {
-  return `- ${title}: ${description}`
-}
-
-/** Plain-text snapshot of the public home page for LLM consumption. */
+/** Plain-text snapshot of the public home page for LLM consumption (`GET /llm.txt`). */
 export function buildLandingLlmText(): string {
-  const c = landingContent
   const baseUrl = NEXT_PUBLIC_APP_URL.replace(/\/$/, "")
+  const hero = en.landing.hero
+  const footer = en.landing.footer
+  const archUi = en.landing.architectures
+  const year = new Date().getFullYear()
+  const copyright = footer.copyright.replace("{year}", String(year))
 
   const lines: string[] = [
-    c.brand.name,
-    "=".repeat(c.brand.name.length),
+    "agentatlas",
+    "==========",
+    "",
+    `> ${siteDescription}`,
     "",
     `URL: ${baseUrl}/`,
     `Title: ${siteTitle}`,
-    `Description: ${siteDescription}`,
+    `Languages: en (default), es (set cookie NEXT_LOCALE=es or use /es/... legacy prefix)`,
     "",
-    ...(c.header.nav.length > 0
-      ? [section("Navigation", c.header.nav.map((item) => `- ${item.label}: ${baseUrl}${item.href}`))]
-      : []),
+    section("For coding agents", [
+      "Primary onboarding for autonomous agents:",
+      "",
+      `- Setup command: ${AGENTATLAS_AGENT_SETUP_COMMAND}`,
+      `- Swarm skill doc: ${AGENTATLAS_SWARM_SKILL_PUBLIC_URL}`,
+      `- This LLM snapshot: ${baseUrl}/llm.txt`,
+      "",
+      "Use the skill doc for graph editor contracts, control nodes, tools, and test runs.",
+      "Use this file for a plain-text summary of the public landing and architecture catalogue.",
+    ].join("\n")),
     section("Hero", [
-      `Badge: ${c.hero.badge}`,
-      `Headline: ${c.hero.title}`,
-      c.hero.lede,
+      `Badge: ${hero.badge}`,
+      `Headline: ${hero.title}`,
+      hero.lede,
       "",
-      `Swarm skill setup: ${AGENTATLAS_AGENT_SETUP_COMMAND}`,
-      `Skill doc: ${baseUrl}/skill.md`,
-    ]),
-    section("Architecture patterns", buildArchitectureCatalogPlainLines()),
-    section("Network", [
-      c.network.lede,
+      hero.skill.hint,
+      hero.skill.footerHint,
+    ].join("\n")),
+    section(archUi.eyebrow, [
+      architectureCatalogSection.intro,
       "",
-      `${c.network.directory.title} (${c.network.directory.status})`,
-      ...c.network.directory.listings.map((listing) => {
-        const badge = listing.badge ? ` · ${listing.badge}` : ""
-        return `- ${listing.name} [${listing.category}] · ${listing.rating}★ · ${listing.stat} · ${listing.price}${badge}`
-      }),
-      "",
-      ...c.network.pillars.map((pillar) => bullet(pillar.title, pillar.description)),
-    ]),
-    section("Operating layer", [
-      c.solution.lede,
-      "",
-      ...c.solution.highlights.map((item) => `- ${item}`),
-    ]),
-    section("Lifecycle", [
-      ...c.howItWorks.steps.map(
-        (step) => `${step.step}. ${step.title}\n   ${step.description}`,
-      ),
-    ]),
-    section("Shared services", [
-      ...c.features.items.map((item) => bullet(item.title, item.description)),
-    ]),
-    section("Market design", [
-      ...c.socialProof.stats.map((stat) => `- ${stat.value}: ${stat.label}`),
-      "",
-      `"${c.socialProof.quote.text}" — ${c.socialProof.quote.attribution}`,
-    ]),
-    section("FAQ", [
-      ...c.faq.items.map(
-        (item) => `Q: ${item.question}\nA: ${item.answer}`,
-      ),
-    ]),
-    section("Get started", [
-      c.finalCta.title,
-      c.finalCta.lede,
-      "",
-      `- ${c.finalCta.primaryCta.label}: ${baseUrl}${c.finalCta.primaryCta.href}`,
-      `- ${c.finalCta.secondaryCta.label}: ${baseUrl}${c.finalCta.secondaryCta.href}`,
-    ]),
+      buildArchitectureCatalogPlainText(),
+    ].join("\n")),
     section("Footer", [
-      c.footer.tagline,
+      footer.tagline,
       "",
       "Links:",
-      ...c.footer.links.map((link) => {
-        const href = link.href.startsWith("#")
-          ? `${baseUrl}/${link.href}`
-          : `${baseUrl}${link.href}`
-        return `- ${link.label}: ${href}`
-      }),
-    ]),
+      `- ${footer.privacy}: ${baseUrl}/privacy`,
+      `- ${footer.terms}: ${baseUrl}/terms`,
+      `- Sign in: ${baseUrl}/sign-in`,
+      `- Sign up: ${baseUrl}/sign-up`,
+      `- Dashboard (authenticated): ${baseUrl}/dashboard`,
+      "",
+      copyright,
+    ].join("\n")),
     "---",
-    `Generated from the public home page. Last updated: ${new Date().toISOString().slice(0, 10)}.`,
+    `Generated from the public landing page. Last updated: ${new Date().toISOString().slice(0, 10)}.`,
   ]
 
   return lines.join("\n").trimEnd() + "\n"
