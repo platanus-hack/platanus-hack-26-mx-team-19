@@ -42,9 +42,70 @@ Platform to **design, test, and compare multi-agent swarm architectures** — no
 
 Map intent to graph shape before picking LangGraph, AutoGen, CrewAI, or a custom runtime. Start with topology — then add cooperation and verification patterns inside workers.
 
+### Quick pattern selector
+
+| Intent / Requirement | Recommended pattern | Complexity |
+|---|---|---|
+| Single agent + tools, unknown steps | **ReAct / Agentic Tool Loop** | Low |
+| Route to specialists, one owner | **Supervisor / Router** | Low |
+| Sequential stages with quality gate | **Pipeline + Critic** | Low |
+| Independent tasks, max throughput | **Parallel fan-out** | Low |
+| Need human sign-off on irreversible act | **Human-in-the-loop Gate** | Low |
+| Two valid framings, verify adversarially | **Debate / Judge** | Medium |
+| Multiple lenses, quality synthesis | **Parallel + synthesizer** | Medium |
+| Reuse complex workflows as callable units | **Nested Swarm Delegation** | Medium |
+| Phases need parallel + serial + conditionals | **Hybrid** | High |
+| Large-scale decentralised (not LLM-based) | **Swarm patterns** | Research |
+
+---
+
+### ReAct / Agentic Tool Loop (Foundation)
+
+**Category:** Agentic · **Layer:** topology · **Complexity:** low
+
+Single agent iterates through Reason → Act (tool call) → Observe until the goal is reached — the building block of most real agents.
+
+One capable agent loops through a think-then-act cycle. At each step it chooses a tool (web search, code exec, scrape, etc.), observes the result, and reasons again. No parallel workers — all complexity lives in the tool selection and prompt. The agent decides when the goal is met.
+
+**Problem:** Multi-worker graphs add coordination overhead when a single goal only requires iterative tool use, not parallel specialization or distinct roles.
+
+**When to use:**
+- A goal is achievable by one capable agent with the right tools.
+- The number of steps is unknown upfront — the agent decides when done.
+- Adding a second worker would only fan out the same tool set, not add real specialization.
+
+**When not to use:**
+- Tasks decompose into genuinely different roles needing different models or prompts.
+- You need guaranteed parallel throughput — the loop is serial.
+- The loop could iterate infinitely — add a While node with maxIterations.
+
+**Forces:**
+- Simplest possible graph: one worker node
+- All intelligence lives in the agent prompt and tool selection
+- Hard to parallelise; add fan-out if throughput matters
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 3 | 4 | 3 | 3 |
+
+**Agents:** 1 agent + 2–5 tools
+
+**Graph:** Nodes: agent, tool_web, tool_code, tool_scrape. Edges: agent → tool_web; agent → tool_code; agent → tool_scrape; tool_web → agent (observe); tool_code → agent (observe); tool_scrape → agent (observe).
+
+**Framework notes:**
+- **LangGraph:** Single StateGraph node with tools list; conditional edge loops back until agent emits final answer.
+- **AutoGen:** ConversableAgent with function_map; loops via reply until termination condition.
+- **agentatlas:** One worker node with agentTools configured. Add a While control node with maxIterations cap if infinite loops are a risk.
+
+**Evidence:** Foundation of OpenAI function calling, Claude tool use, and most single-agent production deployments.
+
+**References:** [ReAct: Synergizing Reasoning and Acting in LLMs (Yao et al. 2022)](https://arxiv.org/abs/2210.11610)
+
+---
+
 ### Supervisor / Router (Popular)
 
-**Category:** Orchestration · **Layer:** topology
+**Category:** Orchestration · **Layer:** topology · **Complexity:** low
 
 One coordinator routes work to specialists and merges results.
 
@@ -80,9 +141,7 @@ A hub worker classifies or decomposes incoming work, delegates to specialist wor
 - **AutoGen:** Group chat with a manager agent delegating to nested chats or registered agents.
 - **LangChain τ-bench:** Maps to the supervisor / swarm routing benchmark topology.
 
-
 **Evidence:** Common default in LangGraph tutorials and τ-bench swarm comparisons.
-
 
 **References:** [LangGraph multi-agent supervisor](https://langchain-ai.github.io/langgraph/); [τ-bench agent architectures](https://arxiv.org/abs/2406.08625)
 
@@ -90,7 +149,7 @@ A hub worker classifies or decomposes incoming work, delegates to specialist wor
 
 ### Pipeline + Critic
 
-**Category:** Quality · **Layer:** topology
+**Category:** Quality · **Layer:** topology · **Complexity:** low
 
 Plan, execute, then verify — each stage owns a narrow job.
 
@@ -126,9 +185,7 @@ Workers run in series: plan or spec, execute the main task, then a critic or ver
 - **AutoGen:** Sequential chat or nested critic agent after primary completion.
 - **CrewAI:** Task chain with explicit review task and output guardrails.
 
-
 **Evidence:** Aligns with plan–execute–verify loops in production coding agents.
-
 
 **References:** [CSIRO agentic workflow patterns (2405.10467)](https://arxiv.org/abs/2405.10467)
 
@@ -136,7 +193,7 @@ Workers run in series: plan or spec, execute the main task, then a critic or ver
 
 ### Parallel fan-out
 
-**Category:** Throughput · **Layer:** topology
+**Category:** Throughput · **Layer:** topology · **Complexity:** low
 
 Fan work out to parallel workers, then merge downstream.
 
@@ -172,22 +229,147 @@ A router or splitter sends independent subtasks to parallel workers. A synthesiz
 - **AutoGen:** Concurrent agent replies collected by a synthesizer.
 - **CrewAI:** Parallel task execution with a final aggregation task.
 
-
 **Evidence:** Standard pattern for map-reduce style agent workflows.
-
 
 **References:** [Map-reduce agents (LangGraph)](https://langchain-ai.github.io/langgraph/)
 
+---
+
+### Human-in-the-loop Gate
+
+**Category:** Safety · **Layer:** verification · **Complexity:** low
+
+A human approval checkpoint pauses the swarm until a person approves, rejects, or redirects.
+
+An approval gate node interrupts execution and waits for human input. On approval the graph proceeds; on rejection it loops back to a revision worker. Adds a human control point without restructuring the rest of the graph.
+
+**Problem:** Fully autonomous swarms can confidently take irreversible actions (send emails, deploy code, charge cards) with no checkpoint. Adding explicit gates makes risk visible, auditable, and controllable.
+
+**When to use:**
+- Actions are irreversible: send, publish, deploy, charge, delete.
+- Regulatory or compliance requirements mandate human sign-off.
+- Output quality variance is high enough that human review adds reliable value.
+
+**When not to use:**
+- Humans are unavailable in the time window required by the task.
+- The action is fully reversible and cost of error is low.
+- Full automation is the explicit product requirement.
+
+**Forces:**
+- Makes irreversible risk explicit and auditable
+- Blocks throughput — latency is bounded by human response time
+- Adds compliance-grade accountability trail
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 5 | 5 | 1 | 2 |
+
+**Agents:** 1–2 workers + 1 approval gate + human
+
+**Graph:** Nodes: worker, gate, continue, revise. Edges: worker → gate; gate → continue (approve); gate → revise (reject); revise → worker.
+
+**Framework notes:**
+- **LangGraph:** `langgraph.interrupt()` blocks execution and waits for external resume signal.
+- **AutoGen:** Human proxy agent in the chat loop with `reply=human_input`.
+- **agentatlas:** Use the built-in `user_approval` control node — sources: `approve` → continue, `reject` → revise loop.
+
+**Evidence:** Standard safety pattern in production agentic workflows handling financial, legal, or irreversible operations.
 
 ---
 
 ## Extended patterns (skill catalogue)
 
-Additional topologies documented for agents — not shown on the landing grid yet.
+Additional topologies documented for agents — includes new verification and composition patterns.
+
+### Debate / Multi-perspective Judge
+
+**Category:** Verification · **Layer:** cooperation · **Complexity:** medium
+
+Two agents argue opposing positions; an independent judge synthesizes and decides.
+
+A router sends the same task to two agents with deliberately different framings (Pro vs Con, Red Team vs Blue Team). An independent Judge reads both arguments and renders a structured verdict, forcing surface of counterarguments before committing.
+
+**Problem:** Single-agent responses can be confidently wrong. Parallel analysts with the same framing produce correlated errors. A structured adversarial setup systematically surfaces counterarguments.
+
+**When to use:**
+- High-stakes decisions with two valid framings (policy, fact-check, legal review).
+- You want to explicitly surface counterarguments before committing.
+- The judge can be prompted with a structured rubric.
+
+**When not to use:**
+- The task has no meaningful opposing perspective — debate adds cost without benefit.
+- Latency is the primary constraint — minimum 3 serial LLM calls.
+- Both agents will hit the same retrieval source (correlated outputs).
+
+**Forces:**
+- Surfaces blindspots and counterarguments systematically
+- Judge prompt quality determines final output quality
+- 3× minimum LLM cost vs. single-agent
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 5 | 4 | 2 | 4 |
+
+**Agents:** 2 debaters + 1 judge (typical 3–5)
+
+**Graph:** Nodes: router, agent_pro, agent_con, judge, output. Edges: router → agent_pro; router → agent_con; agent_pro → judge; agent_con → judge; judge → output.
+
+**Framework notes:**
+- **LangGraph:** Fan-out from router to two parallel nodes, reduce into judge node.
+- **AutoGen:** Two-agent debate chat; third judging agent reads conversation history.
+- **agentatlas:** Parallel fan-out to two worker nodes with opposing system prompts, converge on judge worker.
+
+**Evidence:** Used in constitutional AI evaluation, red-teaming, and high-stakes document review.
+
+**References:** [Multi-agent debate (Du et al. 2023)](https://arxiv.org/abs/2305.14325)
+
+---
+
+### Nested Swarm Delegation
+
+**Category:** Composition · **Layer:** topology · **Complexity:** medium
+
+An orchestrator delegates complex subtasks to specialized child swarms as callable black boxes.
+
+A top-level orchestrator invokes child swarms as tools (`run_swarm`). Each child swarm encapsulates a full multi-step workflow; the parent only sees inputs and outputs. Child swarms can be developed and tested independently.
+
+**Problem:** A single flat graph becomes unmanageable as task complexity grows. Nesting swarms as black-box tools enables reuse, independent testing, and team ownership without coupling internal state.
+
+**When to use:**
+- A subtask is complex enough to warrant its own multi-worker graph.
+- The same child workflow is reused across multiple parent swarms.
+- Teams own different swarms independently — loose coupling required.
+
+**When not to use:**
+- The subtask is simple enough for one worker with tools.
+- Cross-swarm real-time state sharing is required.
+- Latency budget is tight — each nested run adds overhead.
+
+**Forces:**
+- Maximum composability — child swarms are reusable, independently testable
+- Clean boundary: parent only sees swarm input/output
+- Debugging requires tracing into child run history separately
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 4 | 3 | 2 | 5 |
+
+**Agents:** 1 orchestrator + 2–3 child swarms (3–5 workers each)
+
+**Graph:** Nodes: orchestrator, sub_a, sub_b, merge, output. Edges: orchestrator → sub_a; orchestrator → sub_b; sub_a → merge; sub_b → merge; merge → output.
+
+**Framework notes:**
+- **LangGraph:** Subgraph nodes compiled separately; parent graph invokes them as nodes with their own state schemas.
+- **AutoGen:** Nested GroupChat or ConversableAgent wrapping an inner chat manager.
+- **agentatlas:** Add `swarm` control node to parent graph; configure `swarmTools` on orchestrator to expose child swarms as callable tools.
+
+**Evidence:** Common in production agentic systems: a research swarm feeds a drafting swarm, each independently versioned.
+
+---
 
 ### Series (pipeline)
 
-**Category:** Refinement · **Layer:** topology
+**Category:** Refinement · **Layer:** topology · **Complexity:** low
 
 Sequential refinement — each worker passes output to the next (`A → B → C → D`).
 
@@ -223,9 +405,7 @@ Workers run in a strict chain with no parallel branches. Each stage transforms o
 - **AutoGen:** Sequential chat or chained agent handoffs.
 - **CrewAI:** Tasks with explicit `context` from prior task outputs.
 
-
 **Evidence:** Baseline pattern in CSIRO sequential workflow catalogue.
-
 
 **References:** [CSIRO agentic workflow patterns (2405.10467)](https://arxiv.org/abs/2405.10467)
 
@@ -233,11 +413,11 @@ Workers run in a strict chain with no parallel branches. Each stage transforms o
 
 ### Parallel + synthesizer
 
-**Category:** Analysis · **Layer:** topology
+**Category:** Analysis · **Layer:** topology · **Complexity:** medium
 
 Independent analyses in parallel, then one synthesizer merges perspectives.
 
-A router fans out to parallel analyst workers (research, code review, risk, etc.). A dedicated synthesizer worker merges divergent outputs into one coherent answer — stronger emphasis on merge quality than raw throughput fan-out.
+A router fans out to parallel analyst workers. A dedicated synthesizer merges divergent outputs into one coherent answer — stronger emphasis on merge quality than raw throughput fan-out.
 
 **Problem:** Single-perspective analysis misses contradictions; concatenating parallel outputs produces incoherent bundles.
 
@@ -265,19 +445,17 @@ A router fans out to parallel analyst workers (research, code review, risk, etc.
 **Graph:** Nodes: router, analyst_a, analyst_b, analyst_c, synthesizer. Edges: router → analyst_a; router → analyst_b; router → analyst_c; analyst_a → synthesizer; analyst_b → synthesizer; analyst_c → synthesizer.
 
 **Framework notes:**
-- **LangGraph:** Map-reduce with a dedicated reduce/s synthesizer node and structured analyst outputs.
+- **LangGraph:** Map-reduce with a dedicated synthesizer node and structured analyst outputs.
 - **AutoGen:** Parallel nested chats feeding a summarizer agent.
 - **CrewAI:** Parallel tasks converging on a final aggregation task with rubric.
 
-
 **Evidence:** Common in multi-source research and due-diligence agent demos.
-
 
 ---
 
 ### Hybrid
 
-**Category:** Complex workflows · **Layer:** topology
+**Category:** Complex workflows · **Layer:** topology · **Complexity:** high
 
 Mixed control flow — parallel branches, conditionals, and sequential stages in one graph.
 
@@ -313,14 +491,150 @@ Combines routing, parallel fan-out, if/else control nodes, and serial refinement
 - **AutoGen:** Mix group chat routing with nested sequential teams.
 - **agentatlas:** Use control nodes (if/else, while) between worker nodes; validate `sourceHandle` on branch edges.
 
-
 **Evidence:** Production swarms often evolve into hybrid graphs after v1 linear or supervisor designs.
-
 
 **References:** [AutoGen conversation patterns](https://microsoft.github.io/autogen/docs/tutorial/conversation-patterns)
 
+---
 
-Sweet spot: **3–7 workers**. Avoid filler agents (format-only steps → use functions, not workers).
+## Swarm architectures (Research / Advanced)
+
+> [!WARNING]
+> The patterns below are **research-grade** or drawn from physical robotics literature. Most **cannot be directly built in the agentatlas graph editor** without custom runtime infrastructure, pre-training phases, or non-LLM hardware. Use the patterns above for implementable production swarms.
+
+Decentralised, emergent, and bio-inspired architectures for large populations of agents. Coordination emerges from local rules and peer interaction — no single orchestrator. Agents act on local information only; global behaviour is an emergent property.
+
+---
+
+### LLM Centralizado y Agentes Distribuidos
+
+**Category:** Orchestration · **Complexity:** medium · **Implementable in agentatlas**
+
+A single LLM hub dispatches directives to lightweight executor nodes that need no independent reasoning.
+
+Unlike Supervisor/Router (where workers are full LLM agents with their own reasoning), executors here can be APIs, scripts, or physical actuators. All cognition is centralised.
+
+**When to use:**
+- Executors are non-LLM systems (REST APIs, scripts, robotic actuators).
+- Budget precludes running LLMs on each executor node.
+
+**When not to use:**
+- The executor side also needs reasoning — use Supervisor/Router instead.
+- The single LLM hub is a single point of failure you cannot accept.
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 4 | 4 | 3 | 3 |
+
+**Agents:** 1 controlador + 5–10 ejecutores (typical 4–20)
+
+---
+
+### Swarm Modular Asíncrono
+
+**Category:** Modular · **Complexity:** medium · **Implementable in agentatlas**
+
+Roles modulares (exploradores, recolectores, coordinadores) con mensajes asíncronos. El coordinador actúa como dispatcher, no como orquestador cognitivo.
+
+**When to use:** Tareas de búsqueda, exploración, o recolección distribuida con desacoplamiento temporal.
+
+**When not to use:** Se requiere consenso síncrono inmediato entre agentes.
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 3 | 4 | 4 | 3 |
+
+**Agents:** 3 roles × 4 agentes (typical 6–30)
+
+**Graph:** sc1, sc2 → coord (async) → ga1, ga2 (task); coord → sc1 (feedback).
+
+---
+
+### Roles Dinámicos y Bio-miméticos ⚠️ Research
+
+**Category:** Swarm · **Complexity:** research — requires custom runtime
+
+Agentes descentralizados con roles dinámicos inspirados en sistemas bio-miméticos. Coordinación emergente sin control centralizado. No directamente implementable en agentatlas.
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 3 | 2 | 4 | 2 |
+
+**Agents:** 10–20 agentes (typical 5–50)
+
+---
+
+### LLMs Embebidos y Auto-evolución ⚠️ Research
+
+**Category:** Cognitivo · **Complexity:** research — requires P2P runtime + per-agent LLM
+
+Full mesh P2P donde cada agente ejecuta su propio LLM + módulo de auto-evolución. Requiere runtime de comunicación P2P propio.
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 3 | 3 | 2 | 5 |
+
+**Agents:** 5–8 agentes (typical 3–15)
+
+---
+
+### Control de Cohesión y Garantías Formales ⚠️ Research
+
+**Category:** Control · **Complexity:** research — physical systems only (UAVs, drones)
+
+Modelos de control no lineal (Lyapunov) para sistemas físicos. No aplica a agentes LLM.
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 5 | 3 | 4 | 2 |
+
+**Agents:** 20–50 nodos controlados (typical 5–100)
+
+---
+
+### Representación Compacta y Aprendizaje MARL ⚠️ Research
+
+**Category:** Learning · **Complexity:** research — requires offline RL training pipeline
+
+CTDE (Centralised Training Decentralised Execution) con MARL + mean embeddings. Requiere entrenamiento offline previo — no implementable sin pipeline de RL. La latency:5 refleja velocidad de inferencia una vez entrenado, no el setup total.
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 3 | 2 | 5 | 4 |
+
+**Agents:** 50–100 agentes (typical 10–1000)
+
+---
+
+### Enjambre Homogéneo Minimalista ⚠️ Research
+
+**Category:** Bio-inspired · **Complexity:** research — hardware IoT/microcontroller only
+
+Agentes idénticos con protocolo WOSP para hardware físico. No aplica a agentes LLM ni a agentatlas.
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 2 | 2 | 5 | 1 |
+
+**Agents:** 100+ agentes (typical 10–10000)
+
+---
+
+### Enjambre Jerárquico con Metaheurísticas ⚠️ Research
+
+**Category:** Optimization · **Complexity:** research — requires PSO/GA engine
+
+Jerarquías temporales + PSO y algoritmos genéticos para formaciones 3D (UAVs). No implementable en agentatlas.
+
+| Verification | Traceability | Latency | Cost |
+|---|---|---|---|
+| 4 | 3 | 3 | 3 |
+
+**Agents:** 12–24 agentes (typical 6–40)
+
+---
+
+Sweet spot: **3–7 workers** for classic topologies. Research swarm patterns require custom runtimes. Avoid filler agents (format-only steps → use functions, not workers).
 
 <!-- architecture-catalog:end -->
 
