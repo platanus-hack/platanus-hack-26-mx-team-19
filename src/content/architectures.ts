@@ -467,7 +467,7 @@ export const architectureCatalog: ArchitectureEntry[] = [
     id: "swarm-llm-embebido",
     name: "LLMs Embebidos y Auto-evolución",
     layer: "cooperation",
-    category: "Cognitivo",
+    category: "Cognitive",
     summary: "Cada agente integra un LLM ligero para razonamiento local y adaptación autónoma.",
     description:
       "Cada miembro del enjambre ejecuta un LLM local para interpretar su entorno y tomar decisiones. Usan protocolos P2P para compartir estados e implementar un módulo de auto-evolución que ajusta estrategias mediante feedback colectivo.",

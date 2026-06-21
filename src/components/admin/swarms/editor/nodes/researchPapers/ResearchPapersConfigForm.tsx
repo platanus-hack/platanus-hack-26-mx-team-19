@@ -3,6 +3,7 @@
 import { useMemo } from "react"
 import type { AdminAgentWorker, SwarmGraph } from "@/data/api/server"
 import { buildReferencedSwarmLookup, buildScraperUrlContextOptions } from "@/lib/swarm-graph-vars"
+import { useMessages } from "@/i18n/LocaleProvider"
 import { useSwarmEditor } from "../../SwarmEditorContext"
 import type { ResearchPapersNodeData } from "./data"
 
@@ -40,6 +41,7 @@ export default function ResearchPapersConfigForm({
   graph,
   workerById,
 }: Props) {
+  const t = useMessages().swarmEditor.nodes.researchPapers
   const { pickerSwarms } = useSwarmEditor()
   const referencedSwarmById = useMemo(
     () => buildReferencedSwarmLookup(pickerSwarms),
@@ -67,18 +69,18 @@ export default function ResearchPapersConfigForm({
   return (
     <div className="form">
       <label className="field">
-        <span className="field-label">Label</span>
+        <span className="field-label">{t.labelField}</span>
         <input
           className="field-control"
           type="text"
-          placeholder="Optional"
+          placeholder={t.labelPlaceholder}
           value={data.label ?? ""}
           onChange={(e) => patch({ label: e.target.value })}
         />
       </label>
 
       <label className="field field--stack">
-        <span className="field-label">Query source</span>
+        <span className="field-label">{t.querySource}</span>
         <select
           className="field-control field-control--mono"
           value={selectedValue}
@@ -88,7 +90,7 @@ export default function ResearchPapersConfigForm({
             <option value={selectedValue}>{selectedValue.replace(":", ".")}</option>
           ) : null}
           {runInputOptions.length > 0 ? (
-            <optgroup label="Start input">
+            <optgroup label={t.startInput}>
               {runInputOptions.map((option) => (
                 <option
                   key={contextOptionValue(option.urlSource, option.urlPath)}
@@ -100,7 +102,7 @@ export default function ResearchPapersConfigForm({
             </optgroup>
           ) : null}
           {upstreamOptions.length > 0 ? (
-            <optgroup label="Upstream">
+            <optgroup label={t.upstream}>
               {upstreamOptions.map((option) => (
                 <option
                   key={contextOptionValue(option.urlSource, option.urlPath)}
@@ -111,22 +113,20 @@ export default function ResearchPapersConfigForm({
               ))}
             </optgroup>
           ) : null}
-          <option value={STATIC_VALUE}>Fixed query</option>
+          <option value={STATIC_VALUE}>{t.fixedQuery}</option>
         </select>
         {!hasContextOptions && data.querySource !== "static" ? (
-          <span className="field-hint">
-            Add input variables on Start or wire an upstream node to populate this list.
-          </span>
+          <span className="field-hint">{t.querySourceHint}</span>
         ) : null}
       </label>
 
       {data.querySource === "static" ? (
         <label className="field field--stack">
-          <span className="field-label">Query</span>
+          <span className="field-label">{t.query}</span>
           <input
             className="field-control"
             type="text"
-            placeholder="diffusion image synthesis"
+            placeholder={t.queryPlaceholder}
             value={data.query ?? ""}
             onChange={(e) => patch({ query: e.target.value })}
           />
@@ -134,7 +134,7 @@ export default function ResearchPapersConfigForm({
       ) : null}
 
       <label className="field field--stack">
-        <span className="field-label">Max papers</span>
+        <span className="field-label">{t.maxPapers}</span>
         <input
           className="field-control"
           type="number"
@@ -146,11 +146,12 @@ export default function ResearchPapersConfigForm({
       </label>
 
       <section className="outputs">
-        <h3 className="section-title">Downstream output</h3>
+        <h3 className="section-title">{t.downstreamOutput}</h3>
         <p className="field-hint">
-          Agents on the success branch receive <code>papers</code>, <code>query</code>,{" "}
-          <code>paperCount</code>, and <code>status</code>. Use{" "}
-          <code>{`{{papers}}`}</code> or <code>{`{{query}}`}</code> in prompts.
+          {t.downstreamHintIntro} <code>papers</code>, <code>query</code>,{" "}
+          <code>paperCount</code>, {t.downstreamHintJoin} <code>status</code>. {t.downstreamHintUse}{" "}
+          <code>{`{{papers}}`}</code> {t.downstreamHintOr} <code>{`{{query}}`}</code>{" "}
+          {t.downstreamHintInPrompts}
         </p>
       </section>
 

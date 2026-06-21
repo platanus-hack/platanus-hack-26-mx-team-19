@@ -3,10 +3,172 @@
     "loading": "Loading…",
     "signOut": "Sign out"
   },
+  "locale": {
+    "switchLabel": "Language"
+  },
+  "landing": {
+    "header": {
+      "loginLabel": "Log in",
+      "signupLabel": "Sign up",
+      "dashboardLabel": "Dashboard"
+    },
+    "hero": {
+      "badge": "Agent documentation",
+      "title": "Teach your agents how to build swarms and sub-agents.",
+      "lede": "One skill URL with graph topologies, workers, nested swarms, tools, and test runs — so coding agents know how to design and run multi-agent systems.",
+      "skill": {
+        "hint": "Copy the setup command into your agent.",
+        "footerHint": "Your agent fetches the skill doc and learns the swarm workflow.",
+        "copyAria": "Copy command",
+        "copiedAria": "Copied"
+      }
+    },
+    "footer": {
+      "tagline": "Platform to create and test agent swarms.",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "contact": "Contact",
+      "copyright": "© {year} agentatlas. All rights reserved."
+    },
+    "architectures": {
+      "eyebrow": "Architecture patterns",
+      "extendedEyebrow": "Extended patterns",
+      "researchOnly": "Research only",
+      "patternGuide": "Pattern guide",
+      "problem": "Problem",
+      "whenToUse": "When to use",
+      "whenNotToUse": "When not to use",
+      "forces": "Forces",
+      "agents": "Agents",
+      "agentsTypical": "typical",
+      "graph": "Graph",
+      "frameworkNotes": "Framework notes",
+      "evidence": "Evidence",
+      "operationalProfile": "Operational profile",
+      "scaleVerification": "Verify",
+      "scaleTraceability": "Trace",
+      "scaleLatency": "Speed",
+      "scaleCost": "Cost",
+      "categories": {
+        "Agentic": "Agentic",
+        "Analysis": "Analysis",
+        "Bio-inspired": "Bio-inspired",
+        "Cognitive": "Cognitive",
+        "Complex workflows": "Complex workflows",
+        "Composition": "Composition",
+        "Control": "Control",
+        "Learning": "Learning",
+        "Modular": "Modular",
+        "Optimization": "Optimization",
+        "Orchestration": "Orchestration",
+        "Quality": "Quality",
+        "Refinement": "Refinement",
+        "Safety": "Safety",
+        "Swarm": "Swarm",
+        "Throughput": "Throughput",
+        "Verification": "Verification"
+      },
+      "badges": {
+        "Popular": "Popular",
+        "Research": "Research",
+        "Foundation": "Foundation"
+      },
+      "layers": {
+        "topology": "Topology",
+        "cooperation": "Cooperation",
+        "verification": "Verification"
+      }
+    }
+  },
+  "swarmEditor": {
+    "sidebar": {
+      "title": "Nodes",
+      "agent": "Agent",
+      "addAgentAria": "Add agent to canvas",
+      "addAgentTitle": "Add a new agent — each node has its own prompt"
+    },
+    "status": {
+      "backAria": "Back to swarms",
+      "saving": "Saving…",
+      "saveChanges": "Save changes",
+      "allSaved": "All changes saved"
+    },
+    "branch": {
+      "success": "Success",
+      "failed": "Failed"
+    },
+    "approval": {
+      "approve": "Approve",
+      "reject": "Reject"
+    },
+    "nodes": {
+      "start": {
+        "label": "Start",
+        "description": "Workflow entry — declare run inputs and wire one or more agents in parallel from here."
+      },
+      "ifelse": {
+        "label": "If / else",
+        "description": "Create conditions to branch your workflow"
+      },
+      "while": {
+        "label": "While",
+        "description": "Repeat a branch while a condition stays true"
+      },
+      "scraper": {
+        "label": "Web scrape",
+        "description": "Fetch a page as markdown and branch on success or failure"
+      },
+      "researchPapers": {
+        "label": "Research papers",
+        "description": "Search academic papers and branch on success or failure",
+        "configureAria": "Configure research papers node",
+        "labelField": "Label",
+        "labelPlaceholder": "Optional",
+        "querySource": "Query source",
+        "startInput": "Start input",
+        "upstream": "Upstream",
+        "fixedQuery": "Fixed query",
+        "querySourceHint": "Add input variables on Start or wire an upstream node to populate this list.",
+        "query": "Query",
+        "queryPlaceholder": "diffusion image synthesis",
+        "maxPapers": "Max papers",
+        "downstreamOutput": "Downstream output",
+        "downstreamHintIntro": "Agents on the success branch receive",
+        "downstreamHintJoin": "and",
+        "downstreamHintUse": "Use",
+        "downstreamHintOr": "or",
+        "downstreamHintInPrompts": "in prompts."
+      },
+      "swarm": {
+        "label": "Sub-swarm",
+        "description": "Run another swarm and branch on success or failure"
+      },
+      "userApproval": {
+        "label": "User approval",
+        "description": "Pause for a human to approve or reject a step"
+      },
+      "end": {
+        "label": "End",
+        "description": "Optional final join — assemble structured JSON from upstream outputs."
+      }
+    }
+  },
   "auth": {
     "signIn": {
       "title": "Sign in",
-      "lede": "Use your email and password to continue."
+      "lede": "Use your email and password to continue.",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "At least 6 characters",
+      "invalidCredentials": "Invalid email or password",
+      "genericError": "Something went wrong. Try again.",
+      "submit": "Sign in",
+      "divider": "Or",
+      "google": "Continue with Google",
+      "createAccount": "Create account",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
     },
     "signUp": {
       "title": "Create account",

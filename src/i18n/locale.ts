@@ -1,0 +1,75 @@
+export type Locale = "en" | "es"
+
+export const DEFAULT_LOCALE: Locale = "en"
+
+export const LOCALE_COOKIE = "NEXT_LOCALE"
+
+const SPANISH_TIMEZONES = new Set([
+  "America/Mexico_City",
+  "America/Cancun",
+  "America/Merida",
+  "America/Monterrey",
+  "America/Matamoros",
+  "America/Mazatlan",
+  "America/Chihuahua",
+  "America/Ojinaga",
+  "America/Hermosillo",
+  "America/Tijuana",
+  "America/Bogota",
+  "America/Lima",
+  "America/Santiago",
+  "America/Argentina/Buenos_Aires",
+  "America/Montevideo",
+  "America/Caracas",
+  "America/La_Paz",
+  "America/Asuncion",
+  "America/Guayaquil",
+  "America/Panama",
+  "America/Costa_Rica",
+  "America/Guatemala",
+  "America/El_Salvador",
+  "America/Tegucigalpa",
+  "America/Managua",
+  "Europe/Madrid",
+  "Atlantic/Canary",
+])
+
+export function readLocaleFromCookie(): Locale | null {
+  if (typeof document === "undefined") return null
+  const m = document.cookie.match(new RegExp(`(?:^|;\\s*)${LOCALE_COOKIE}=([^;]*)`))
+  const v = m?.[1]?.trim()
+  if (v === "es" || v === "en") return v
+  return null
+}
+
+export function writeLocaleCookie(locale: Locale): void {
+  if (typeof document === "undefined") return
+  const secure =
+    typeof window !== "undefined" && window.location?.protocol === "https:" ? "; Secure" : ""
+  document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; SameSite=Strict${secure}`
+}
+
+/** First visit: infer locale from browser language and timezone (Americas / Spain → es). */
+export function detectLocaleFromLocation(): Locale {
+  if (typeof navigator === "undefined") return DEFAULT_LOCALE
+
+  const languages = navigator.languages?.length ? navigator.languages : [navigator.language]
+  for (const raw of languages) {
+    const tag = raw?.trim().toLowerCase()
+    if (!tag) continue
+    if (tag === "es" || tag.startsWith("es-")) return "es"
+  }
+
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+    if (tz && SPANISH_TIMEZONES.has(tz)) return "es"
+  } catch {
+    /* ignore */
+  }
+
+  return DEFAULT_LOCALE
+}
+
+export function resolveInitialLocale(): Locale {
+  return readLocaleFromCookie() ?? detectLocaleFromLocation()
+}

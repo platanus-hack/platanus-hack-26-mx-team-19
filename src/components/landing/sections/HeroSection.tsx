@@ -1,10 +1,12 @@
-import { landingContent } from "@/content/landing"
+"use client"
+
+import { useMessages } from "@/i18n/LocaleProvider"
 import SkillCopyCommand from "../SkillCopyCommand"
 import LandingContainer from "../LandingContainer"
 import LandingSection from "../LandingSection"
 
 export default function HeroSection() {
-  const { hero } = landingContent
+  const { hero } = useMessages().landing
 
   return (
     <LandingSection variant="hero-compact" aria-labelledby="landing-hero-title">

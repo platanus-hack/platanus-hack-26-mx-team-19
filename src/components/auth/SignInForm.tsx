@@ -7,6 +7,7 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5"
 import Button from "@/components/ui/Button"
 import GoogleAuthButton from "@/components/auth/GoogleAuthButton"
 import { useServices } from "@/data/providers/ServicesProvider"
+import { useMessages } from "@/i18n/client"
 import { NEXT_PUBLIC_API_URL } from "@/config/env"
 import {
   buildAuthQuery,
@@ -21,6 +22,7 @@ type FormValues = {
 }
 
 export default function SignInForm() {
+  const t = useMessages().auth.signIn
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
@@ -41,13 +43,13 @@ export default function SignInForm() {
     try {
       const response = await login(data)
       if (!response) {
-        setError("root", { type: "manual", message: "Invalid email or password" })
+        setError("root", { type: "manual", message: t.invalidCredentials })
         return
       }
 
       router.push(resolvePostAuthPath(redirectPath))
     } catch {
-      setError("root", { type: "manual", message: "Something went wrong. Try again." })
+      setError("root", { type: "manual", message: t.genericError })
     } finally {
       setIsLoading(false)
     }
@@ -64,17 +66,17 @@ export default function SignInForm() {
 
   return (
     <div className={styles.form}>
-      <h1 className={styles.title}>Sign in</h1>
-      <p className={styles.lede}>Use your email and password to continue.</p>
+      <h1 className={styles.title}>{t.title}</h1>
+      <p className={styles.lede}>{t.lede}</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.fields}>
           <div>
             <input
               {...register("email", {
-                required: "Email is required",
+                required: t.emailRequired,
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Enter a valid email",
+                  message: t.emailInvalid,
                 },
               })}
               className={styles.input}
@@ -88,8 +90,8 @@ export default function SignInForm() {
             <div className={styles.passwordWrap}>
               <input
                 {...register("password", {
-                  required: "Password is required",
-                  minLength: { value: 6, message: "At least 6 characters" },
+                  required: t.passwordRequired,
+                  minLength: { value: 6, message: t.passwordMinLength },
                 })}
                 className={styles.input}
                 type={showPassword ? "text" : "password"}
@@ -100,7 +102,7 @@ export default function SignInForm() {
                 type="button"
                 className={styles.passwordToggle}
                 onClick={() => setShowPassword((v) => !v)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
+                aria-label={showPassword ? t.hidePassword : t.showPassword}
               >
                 {showPassword ? <IoEyeOffOutline size={18} /> : <IoEyeOutline size={18} />}
               </button>
@@ -114,16 +116,16 @@ export default function SignInForm() {
             loading={isSubmitting || isLoading}
             disabled={isSubmitting || isLoading}
           >
-            Sign in
+            {t.submit}
           </Button>
         </div>
       </form>
       <div className={styles.divider} role="separator">
-        <span>Or</span>
+        <span>{t.divider}</span>
       </div>
-      <GoogleAuthButton text="Continue with Google" onClick={onGoogleLogin} />
+      <GoogleAuthButton text={t.google} onClick={onGoogleLogin} />
       <button type="button" className={styles.footerLink} onClick={() => router.push(signUpPath)}>
-        Create account
+        {t.createAccount}
       </button>
     </div>
   )

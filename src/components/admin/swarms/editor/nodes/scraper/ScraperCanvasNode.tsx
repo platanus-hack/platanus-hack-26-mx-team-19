@@ -7,6 +7,7 @@ import { CANVAS_NODE_CIRCLE_RADIUS } from "../shared/canvasNodeShapeStyles"
 import NodeRunVisual, { nodeRunSquareModifier, useNodeRunState } from "../shared/NodeRunVisual"
 import { NODE_RUN_SQUARE_STYLES } from "../shared/nodeRunSquareStyles"
 import { useSwarmEditor } from "../../SwarmEditorContext"
+import { useMessages } from "@/i18n/LocaleProvider"
 import {
   SCRAPER_FAILED_HANDLE,
   SCRAPER_SUCCESS_HANDLE,
@@ -24,6 +25,7 @@ function sourceHandleTop(index: number, total: number): string {
 /** Compact scraper node on the React Flow canvas. */
 export default function ScraperCanvasNode({ id, selected }: NodeProps<ScraperNodeType>) {
   const { onSelectNode, onOpenNode } = useSwarmEditor()
+  const branch = useMessages().swarmEditor.branch
   const runState = useNodeRunState(id)
   const outputCount = 2
 
@@ -59,7 +61,7 @@ export default function ScraperCanvasNode({ id, selected }: NodeProps<ScraperNod
           className="branch-label branch-label--success"
           style={{ top: sourceHandleTop(0, outputCount) }}
         >
-          Success
+          {branch.success}
         </span>
         <Handle
           type="source"
@@ -72,7 +74,7 @@ export default function ScraperCanvasNode({ id, selected }: NodeProps<ScraperNod
           className="branch-label branch-label--failed"
           style={{ top: sourceHandleTop(1, outputCount) }}
         >
-          Failed
+          {branch.failed}
         </span>
       </div>
 

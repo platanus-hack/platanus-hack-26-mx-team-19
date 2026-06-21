@@ -2,14 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { IoCheckmark, IoChevronForward, IoCopyOutline } from "react-icons/io5"
-import { landingContent } from "@/content/landing"
 import { AGENTATLAS_AGENT_SETUP_COMMAND, AGENTATLAS_SWARM_SKILL_PUBLIC_URL } from "@/lib/agentatlas-skill"
+import { useMessages } from "@/i18n/LocaleProvider"
 import styles from "./skill-copy-command.module.css"
 
 const COPIED_RESET_MS = 2000
 
 export default function SkillCopyCommand() {
-  const { skill } = landingContent.hero
+  const skill = useMessages().landing.hero.skill
   const [copied, setCopied] = useState(false)
   const resetTimeoutRef = useRef<number | null>(null)
 
@@ -66,7 +66,7 @@ export default function SkillCopyCommand() {
               void copyCommand()
               event.currentTarget.blur()
             }}
-            aria-label={copied ? "Copied" : "Copy command"}
+            aria-label={copied ? skill.copiedAria : skill.copyAria}
           >
             {copied ? (
               <IoCheckmark className={styles.copyIcon} aria-hidden />

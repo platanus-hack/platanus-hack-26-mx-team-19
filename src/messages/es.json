@@ -3,10 +3,172 @@
     "loading": "Cargando…",
     "signOut": "Cerrar sesión"
   },
+  "locale": {
+    "switchLabel": "Idioma"
+  },
+  "landing": {
+    "header": {
+      "loginLabel": "Iniciar sesión",
+      "signupLabel": "Registrarse",
+      "dashboardLabel": "Panel"
+    },
+    "hero": {
+      "badge": "Documentación para agentes",
+      "title": "Enséñale a tus agentes a construir swarms y sub-agentes.",
+      "lede": "Una URL de skill con topologías de grafo, workers, sub-swarms, herramientas y test runs — para que los agentes de código sepan diseñar y ejecutar sistemas multi-agente.",
+      "skill": {
+        "hint": "Copia el comando de configuración en tu agente.",
+        "footerHint": "Tu agente obtiene el skill doc y aprende el flujo de swarms.",
+        "copyAria": "Copiar comando",
+        "copiedAria": "Copiado"
+      }
+    },
+    "footer": {
+      "tagline": "Plataforma para crear y probar swarms de agentes.",
+      "privacy": "Privacidad",
+      "terms": "Términos",
+      "contact": "Contacto",
+      "copyright": "© {year} agentatlas. Todos los derechos reservados."
+    },
+    "architectures": {
+      "eyebrow": "Patrones de arquitectura",
+      "extendedEyebrow": "Patrones extendidos",
+      "researchOnly": "Solo investigación",
+      "patternGuide": "Guía del patrón",
+      "problem": "Problema",
+      "whenToUse": "Cuándo usar",
+      "whenNotToUse": "Cuándo no usar",
+      "forces": "Fuerzas",
+      "agents": "Agentes",
+      "agentsTypical": "típico",
+      "graph": "Grafo",
+      "frameworkNotes": "Notas de frameworks",
+      "evidence": "Evidencia",
+      "operationalProfile": "Perfil operativo",
+      "scaleVerification": "Verificación",
+      "scaleTraceability": "Trazabilidad",
+      "scaleLatency": "Velocidad",
+      "scaleCost": "Costo",
+      "categories": {
+        "Agentic": "Agéntico",
+        "Analysis": "Análisis",
+        "Bio-inspired": "Bio-inspirado",
+        "Cognitive": "Cognitivo",
+        "Complex workflows": "Flujos complejos",
+        "Composition": "Composición",
+        "Control": "Control",
+        "Learning": "Aprendizaje",
+        "Modular": "Modular",
+        "Optimization": "Optimización",
+        "Orchestration": "Orquestación",
+        "Quality": "Calidad",
+        "Refinement": "Refinamiento",
+        "Safety": "Seguridad",
+        "Swarm": "Enjambre",
+        "Throughput": "Rendimiento",
+        "Verification": "Verificación"
+      },
+      "badges": {
+        "Popular": "Popular",
+        "Research": "Investigación",
+        "Foundation": "Fundamento"
+      },
+      "layers": {
+        "topology": "Topología",
+        "cooperation": "Cooperación",
+        "verification": "Verificación"
+      }
+    }
+  },
+  "swarmEditor": {
+    "sidebar": {
+      "title": "Nodos",
+      "agent": "Agente",
+      "addAgentAria": "Añadir agente al canvas",
+      "addAgentTitle": "Añadir un agente nuevo — cada nodo tiene su propio prompt"
+    },
+    "status": {
+      "backAria": "Volver a swarms",
+      "saving": "Guardando…",
+      "saveChanges": "Guardar cambios",
+      "allSaved": "Todos los cambios guardados"
+    },
+    "branch": {
+      "success": "Éxito",
+      "failed": "Fallo"
+    },
+    "approval": {
+      "approve": "Aprobar",
+      "reject": "Rechazar"
+    },
+    "nodes": {
+      "start": {
+        "label": "Start",
+        "description": "Entrada del flujo — declara inputs de ejecución y conecta uno o más agentes en paralelo."
+      },
+      "ifelse": {
+        "label": "If / else",
+        "description": "Crea condiciones para ramificar el flujo"
+      },
+      "while": {
+        "label": "While",
+        "description": "Repite una rama mientras una condición sea verdadera"
+      },
+      "scraper": {
+        "label": "Web scrape",
+        "description": "Obtiene una página como markdown y ramifica según éxito o fallo"
+      },
+      "researchPapers": {
+        "label": "Artículos de investigación",
+        "description": "Busca papers académicos y ramifica según éxito o fallo",
+        "configureAria": "Configurar nodo de artículos de investigación",
+        "labelField": "Etiqueta",
+        "labelPlaceholder": "Opcional",
+        "querySource": "Origen de la consulta",
+        "startInput": "Entrada inicial",
+        "upstream": "Upstream",
+        "fixedQuery": "Consulta fija",
+        "querySourceHint": "Añade variables en Start o conecta un nodo upstream para llenar esta lista.",
+        "query": "Consulta",
+        "queryPlaceholder": "síntesis de imagen por difusión",
+        "maxPapers": "Máx. papers",
+        "downstreamOutput": "Salida downstream",
+        "downstreamHintIntro": "Los agentes en la rama de éxito reciben",
+        "downstreamHintJoin": "y",
+        "downstreamHintUse": "Usa",
+        "downstreamHintOr": "o",
+        "downstreamHintInPrompts": "en los prompts."
+      },
+      "swarm": {
+        "label": "Sub-swarm",
+        "description": "Ejecuta otro swarm y ramifica según éxito o fallo"
+      },
+      "userApproval": {
+        "label": "Aprobación humana",
+        "description": "Pausa hasta que una persona apruebe o rechace un paso"
+      },
+      "end": {
+        "label": "End",
+        "description": "Unión final opcional — ensambla JSON estructurado desde salidas upstream."
+      }
+    }
+  },
   "auth": {
     "signIn": {
       "title": "Iniciar sesión",
-      "lede": "Usa tu correo y contraseña para continuar."
+      "lede": "Usa tu correo y contraseña para continuar.",
+      "emailRequired": "El correo es obligatorio",
+      "emailInvalid": "Introduce un correo válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMinLength": "Al menos 6 caracteres",
+      "invalidCredentials": "Correo o contraseña incorrectos",
+      "genericError": "Algo salió mal. Inténtalo de nuevo.",
+      "submit": "Iniciar sesión",
+      "divider": "O",
+      "google": "Continuar con Google",
+      "createAccount": "Crear cuenta",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña"
     },
     "signUp": {
       "title": "Crear cuenta",

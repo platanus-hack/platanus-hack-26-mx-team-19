@@ -11,12 +11,10 @@ const ApiServices = axios.create({
   baseURL: NEXT_PUBLIC_API_URL,
 })
 
+import { readLocaleFromCookie, resolveInitialLocale } from "@/i18n/locale"
+
 function getLocaleFromCookie(): string {
-  if (typeof document === "undefined") return "en"
-  const match = document.cookie.match(/(?:^|;\s*)NEXT_LOCALE=([^;]*)/)
-  const raw = match?.[1]?.trim()
-  const value = raw && raw.length > 0 ? raw : null
-  return value === "es" || value === "en" ? value : "en"
+  return readLocaleFromCookie() ?? resolveInitialLocale()
 }
 
 const REQUEST_ID_HEADER = "x-request-id"

@@ -7,6 +7,7 @@ import { CANVAS_NODE_CIRCLE_RADIUS } from "../shared/canvasNodeShapeStyles"
 import NodeRunVisual, { nodeRunSquareModifier, useNodeRunState } from "../shared/NodeRunVisual"
 import { NODE_RUN_SQUARE_STYLES } from "../shared/nodeRunSquareStyles"
 import { useSwarmEditor } from "../../SwarmEditorContext"
+import { useMessages } from "@/i18n/LocaleProvider"
 import {
   RESEARCH_PAPERS_FAILED_HANDLE,
   RESEARCH_PAPERS_SUCCESS_HANDLE,
@@ -23,6 +24,8 @@ function sourceHandleTop(index: number, total: number): string {
 
 export default function ResearchPapersCanvasNode({ id, selected }: NodeProps<ResearchPapersNodeType>) {
   const { onSelectNode, onOpenNode } = useSwarmEditor()
+  const branch = useMessages().swarmEditor.branch
+  const t = useMessages().swarmEditor.nodes.researchPapers
   const runState = useNodeRunState(id)
   const outputCount = 2
 
@@ -36,7 +39,7 @@ export default function ResearchPapersCanvasNode({ id, selected }: NodeProps<Res
       id={id}
       type="research_papers"
       onConfigure={openConfig}
-      configureAriaLabel="Configure research papers node"
+      configureAriaLabel={t.configureAria}
     >
       <div className={`research-papers-node${selected ? " research-papers-node--on" : ""}`}>
         <Handle
@@ -58,7 +61,7 @@ export default function ResearchPapersCanvasNode({ id, selected }: NodeProps<Res
           className="branch-label branch-label--success"
           style={{ top: sourceHandleTop(0, outputCount) }}
         >
-          Success
+          {branch.success}
         </span>
         <Handle
           type="source"
@@ -71,7 +74,7 @@ export default function ResearchPapersCanvasNode({ id, selected }: NodeProps<Res
           className="branch-label branch-label--failed"
           style={{ top: sourceHandleTop(1, outputCount) }}
         >
-          Failed
+          {branch.failed}
         </span>
       </div>
 

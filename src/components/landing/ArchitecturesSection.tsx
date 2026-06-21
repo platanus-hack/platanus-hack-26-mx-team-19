@@ -1,3 +1,5 @@
+"use client"
+
 import type React from "react"
 import type {
   ArchitectureEntry,
@@ -8,17 +10,17 @@ import {
   getExtendedArchitectureEntries,
   getFeaturedArchitectureEntries,
 } from "@/content/architectures"
-import { landingContent } from "@/content/landing"
+import { useLocale, useMessages } from "@/i18n/LocaleProvider"
+import { localizeArchitectureCatalog } from "@/i18n/localize-architecture"
+import {
+  architectureScaleLabels,
+  translateArchitectureBadge,
+  translateArchitectureCategory,
+  translateArchitectureLayer,
+} from "@/i18n/architecture-labels"
 import LandingContainer from "@/components/landing/LandingContainer"
 import LandingSection from "@/components/landing/LandingSection"
 import styles from "./architectures-section.module.css"
-
-const SCALE_LABELS: Record<string, string> = {
-  verification: "Verify",
-  traceability: "Trace",
-  latency: "Speed",
-  cost: "Cost",
-}
 
 const NODE = { r: 10, stroke: "var(--app-border-strong)", fill: "var(--app-surface)" }
 const EDGE = { stroke: "var(--app-border-strong)", strokeWidth: 1.5 }
@@ -511,6 +513,8 @@ function BulletList({ items }: { items: string[] }) {
 }
 
 function ArchitectureCard({ entry }: { entry: ArchitectureEntry }) {
+  const arch = useMessages().landing.architectures
+  const scaleLabels = architectureScaleLabels(arch)
   const scales: Array<{ key: string; value: ArchitectureScale }> = [
     { key: "verification", value: entry.verification },
     { key: "traceability", value: entry.traceability },
@@ -536,58 +540,64 @@ function ArchitectureCard({ entry }: { entry: ArchitectureEntry }) {
           <div>
             <h3 className={styles.cardName}>{entry.name}</h3>
             <p className={styles.cardCategory}>
-              {entry.category} · {entry.layer}
-              {entry.complexity === "research" ? " · Research only" : null}
+              {translateArchitectureCategory(entry.category, arch)} ·{" "}
+              {translateArchitectureLayer(entry.layer, arch)}
+              {entry.complexity === "research" ? ` · ${arch.researchOnly}` : null}
             </p>
           </div>
-          {entry.badge ? <span className={styles.cardBadge}>{entry.badge}</span> : null}
+          {entry.badge ? (
+            <span className={styles.cardBadge}>
+              {translateArchitectureBadge(entry.badge, arch)}
+            </span>
+          ) : null}
         </div>
 
         <p className={styles.cardSummary}>{entry.summary}</p>
         <p className={styles.cardDescription}>{entry.description}</p>
 
-        <div className={styles.scales} aria-label="Operational profile">
+        <div className={styles.scales} aria-label={arch.operationalProfile}>
           {scales.map(({ key, value }) => (
-            <ScaleMetric key={key} label={SCALE_LABELS[key] ?? key} value={value} />
+            <ScaleMetric key={key} label={scaleLabels[key] ?? key} value={value} />
           ))}
         </div>
 
         <details className={styles.details}>
-          <summary className={styles.detailsSummary}>Pattern guide</summary>
+          <summary className={styles.detailsSummary}>{arch.patternGuide}</summary>
           <div className={styles.detailsBody}>
             <p className={styles.problem}>
-              <span className={styles.detailLabel}>Problem</span>
+              <span className={styles.detailLabel}>{arch.problem}</span>
               {entry.problem}
             </p>
 
             <div className={styles.detailBlock}>
-              <p className={styles.detailLabel}>When to use</p>
+              <p className={styles.detailLabel}>{arch.whenToUse}</p>
               <BulletList items={entry.when_to_use} />
             </div>
 
             <div className={styles.detailBlock}>
-              <p className={styles.detailLabel}>When not to use</p>
+              <p className={styles.detailLabel}>{arch.whenNotToUse}</p>
               <BulletList items={entry.when_not_to_use} />
             </div>
 
             <div className={styles.detailBlock}>
-              <p className={styles.detailLabel}>Forces</p>
+              <p className={styles.detailLabel}>{arch.forces}</p>
               <BulletList items={entry.forces} />
             </div>
 
             <p className={styles.meta}>
-              <span className={styles.detailLabel}>Agents</span>
-              {entry.agent_count.sweet_spot} (typical {entry.agent_count.min}–{entry.agent_count.max})
+              <span className={styles.detailLabel}>{arch.agents}</span>
+              {entry.agent_count.sweet_spot} ({arch.agentsTypical}{" "}
+              {entry.agent_count.min}–{entry.agent_count.max})
             </p>
 
             <p className={styles.meta}>
-              <span className={styles.detailLabel}>Graph</span>
+              <span className={styles.detailLabel}>{arch.graph}</span>
               {graphSummary}
             </p>
 
             {entry.framework_notes ? (
               <div className={styles.detailBlock}>
-                <p className={styles.detailLabel}>Framework notes</p>
+                <p className={styles.detailLabel}>{arch.frameworkNotes}</p>
                 <ul className={styles.list}>
                   {Object.entries(entry.framework_notes).map(([framework, note]) => (
                     <li key={framework}>
@@ -600,7 +610,7 @@ function ArchitectureCard({ entry }: { entry: ArchitectureEntry }) {
 
             {entry.evidence ? (
               <p className={styles.meta}>
-                <span className={styles.detailLabel}>Evidence</span>
+                <span className={styles.detailLabel}>{arch.evidence}</span>
                 {entry.evidence}
               </p>
             ) : null}
@@ -624,13 +634,14 @@ function ArchitectureGrid({ entries }: { entries: ArchitectureEntry[] }) {
 }
 
 export default function ArchitecturesSection() {
-  const { architectures } = landingContent
-  const featured = getFeaturedArchitectureEntries()
-  const extended = getExtendedArchitectureEntries()
+  const { locale } = useLocale()
+  const arch = useMessages().landing.architectures
+  const featured = localizeArchitectureCatalog(getFeaturedArchitectureEntries(), locale)
+  const extended = localizeArchitectureCatalog(getExtendedArchitectureEntries(), locale)
 
   return (
     <LandingSection
-      id={architectures.id}
+      id="architectures"
       variant="compact"
       aria-labelledby="landing-architectures-title"
     >
@@ -639,7 +650,7 @@ export default function ArchitecturesSection() {
         <LandingContainer className={styles.catalogInner}>
         <header className={styles.header}>
           <h2 id="landing-architectures-title" className={styles.title}>
-            {architectures.eyebrow}
+            {arch.eyebrow}
           </h2>
         </header>
 
@@ -647,7 +658,7 @@ export default function ArchitecturesSection() {
 
           {extended.length > 0 ? (
             <div className={styles.extended}>
-              <p className={styles.extendedEyebrow}>{architectures.extendedEyebrow}</p>
+              <p className={styles.extendedEyebrow}>{arch.extendedEyebrow}</p>
               <ArchitectureGrid entries={extended} />
             </div>
           ) : null}

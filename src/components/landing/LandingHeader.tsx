@@ -1,41 +1,36 @@
 "use client"
 
-import { landingContent } from "@/content/landing"
 import { useServices } from "@/data/providers/ServicesProvider"
+import { useMessages } from "@/i18n/LocaleProvider"
 import AppLogo from "@/components/ui/AppLogo"
+import LocaleToggle from "@/components/ui/LocaleToggle"
+import { landingContent } from "@/content/landing"
 import LandingButton from "./LandingButton"
 import LandingContainer from "./LandingContainer"
 
 export default function LandingHeader() {
   const { isLoggedIn, stateService } = useServices()
-  const { brand, header } = landingContent
+  const { brand } = landingContent
+  const t = useMessages().landing.header
 
   return (
     <header className="header">
       <LandingContainer>
         <div className="inner">
         <AppLogo name={brand.name} href="/" size="md" className="brand" />
-        {header.nav.length > 0 ? (
-          <nav className="nav" aria-label="Main">
-            {header.nav.map((item) => (
-              <a key={item.href} href={item.href} className="nav-link">
-                {item.label}
-              </a>
-            ))}
-          </nav>
-        ) : null}
         <div className="actions">
+          <LocaleToggle />
           {stateService && isLoggedIn ? (
             <LandingButton href="/dashboard" variant="primary">
-              {header.dashboardLabel}
+              {t.dashboardLabel}
             </LandingButton>
           ) : (
             <>
               <LandingButton href="/sign-in" variant="ghost">
-                {header.loginLabel}
+                {t.loginLabel}
               </LandingButton>
               <LandingButton href="/sign-up" variant="primary">
-                {header.signupLabel}
+                {t.signupLabel}
               </LandingButton>
             </>
           )}
@@ -63,22 +58,6 @@ export default function LandingHeader() {
         .brand {
           flex-shrink: 0;
         }
-        .nav {
-          display: none;
-          align-items: center;
-          gap: 1.75rem;
-        }
-        .nav-link {
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: var(--app-text-muted);
-          text-decoration: none;
-          transition: color 0.15s ease;
-        }
-        .nav-link:hover {
-          color: var(--app-text);
-          text-decoration: none;
-        }
         .actions {
           display: flex;
           align-items: center;
@@ -92,14 +71,6 @@ export default function LandingHeader() {
           }
           .actions {
             gap: 0.375rem;
-          }
-        }
-        @media (min-width: 768px) {
-          .nav {
-            display: flex;
-          }
-          .actions {
-            margin-left: 0;
           }
         }
       `}</style>

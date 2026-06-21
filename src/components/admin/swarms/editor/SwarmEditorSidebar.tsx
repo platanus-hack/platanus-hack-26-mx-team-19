@@ -1,6 +1,8 @@
 "use client"
 
 import { TbLoader2, TbPlus } from "react-icons/tb"
+import { useMessages } from "@/i18n/LocaleProvider"
+import { controlNodeCopy } from "@/i18n/swarm-editor-nodes"
 import AgentRobotIcon from "./icons/AgentRobotIcon"
 import {
   CONTROL_NODE_PALETTE,
@@ -29,6 +31,15 @@ export default function SwarmEditorSidebar({
   onPlaceControl,
   placingAgent = false,
 }: Props) {
+  const messages = useMessages()
+  const sidebar = messages.swarmEditor.sidebar
+
+  const nodeLabel = (kind: ControlNodeKind, fallback: string) =>
+    controlNodeCopy(messages, kind)?.label ?? fallback
+
+  const nodeDescription = (kind: ControlNodeKind, fallback: string) =>
+    controlNodeCopy(messages, kind)?.description ?? fallback
+
   const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setData(SWARM_PALETTE_AGENT_MIME, "1")
     event.dataTransfer.effectAllowed = "copy"
@@ -47,7 +58,7 @@ export default function SwarmEditorSidebar({
   return (
     <aside className="sidebar" aria-label="Node palette">
       <div className="head">
-        <h3 className="title">Nodes</h3>
+        <h3 className="title">{sidebar.title}</h3>
       </div>
 
       <ul className="list">
@@ -57,13 +68,13 @@ export default function SwarmEditorSidebar({
               className="agent-card"
               draggable
               onDragStart={handleControlDragStart(startNode.kind as ControlNodeKind)}
-              title={startNode.description}
+              title={nodeDescription(startNode.kind as ControlNodeKind, startNode.description)}
             >
               <button
                 type="button"
                 className="agent-tile"
                 onClick={() => onPlaceControl(startNode.kind as ControlNodeKind)}
-                aria-label={`Add ${startNode.label} node to canvas`}
+                aria-label={`Add ${nodeLabel(startNode.kind as ControlNodeKind, startNode.label)} node to canvas`}
               >
                 <span className="agent-icon agent-icon--robot" aria-hidden>
                   <StartIcon size={22} />
@@ -72,7 +83,9 @@ export default function SwarmEditorSidebar({
                   <TbPlus size={22} strokeWidth={2.25} />
                 </span>
               </button>
-              <span className="agent-name">{startNode.label}</span>
+              <span className="agent-name">
+                {nodeLabel(startNode.kind as ControlNodeKind, startNode.label)}
+              </span>
             </div>
           </li>
         ) : null}
@@ -82,14 +95,14 @@ export default function SwarmEditorSidebar({
             className="agent-card"
             draggable={!placingAgent}
             onDragStart={handleDragStart}
-            title="Add a new agent — each node has its own prompt"
+            title={sidebar.addAgentTitle}
           >
             <button
               type="button"
               className="agent-tile"
               onClick={onPlaceAgent}
               disabled={placingAgent}
-              aria-label="Add agent to canvas"
+              aria-label={sidebar.addAgentAria}
             >
               {placingAgent ? (
                 <TbLoader2 size={22} className="spin" aria-hidden />
@@ -104,25 +117,26 @@ export default function SwarmEditorSidebar({
                 </>
               )}
             </button>
-            <span className="agent-name">Agent</span>
+            <span className="agent-name">{sidebar.agent}</span>
           </div>
         </li>
 
         {controlNodes.map((node) => {
           const Icon = node.icon
+          const label = nodeLabel(node.kind, node.label)
           return (
             <li key={node.kind}>
               <div
                 className="agent-card"
                 draggable
                 onDragStart={handleControlDragStart(node.kind)}
-                title={node.description}
+                title={nodeDescription(node.kind, node.description)}
               >
                 <button
                   type="button"
                   className="agent-tile"
                   onClick={() => onPlaceControl(node.kind)}
-                  aria-label={`Add ${node.label} node to canvas`}
+                  aria-label={`Add ${label} node to canvas`}
                 >
                   <span className="agent-icon agent-icon--robot" aria-hidden>
                     <Icon size={22} />
@@ -131,7 +145,7 @@ export default function SwarmEditorSidebar({
                     <TbPlus size={22} strokeWidth={2.25} />
                   </span>
                 </button>
-                <span className="agent-name">{node.label}</span>
+                <span className="agent-name">{label}</span>
               </div>
             </li>
           )

@@ -7,6 +7,7 @@ import { CANVAS_NODE_CIRCLE_RADIUS } from "../shared/canvasNodeShapeStyles"
 import NodeRunVisual, { nodeRunSquareModifier, useNodeRunState } from "../shared/NodeRunVisual"
 import { NODE_RUN_SQUARE_STYLES } from "../shared/nodeRunSquareStyles"
 import { useSwarmEditor } from "../../SwarmEditorContext"
+import { useMessages } from "@/i18n/LocaleProvider"
 import {
   USER_APPROVAL_APPROVE_HANDLE,
   USER_APPROVAL_REJECT_HANDLE,
@@ -24,6 +25,7 @@ function sourceHandleTop(index: number, total: number): string {
 /** User approval gate — approve / reject branches (same layout as scraper). */
 export default function UserApprovalCanvasNode({ id, selected }: NodeProps<UserApprovalNodeType>) {
   const { onSelectNode, onOpenNode } = useSwarmEditor()
+  const approval = useMessages().swarmEditor.approval
   const runState = useNodeRunState(id)
   const outputCount = 2
 
@@ -59,7 +61,7 @@ export default function UserApprovalCanvasNode({ id, selected }: NodeProps<UserA
           className="branch-label branch-label--approve"
           style={{ top: sourceHandleTop(0, outputCount) }}
         >
-          Approve
+          {approval.approve}
         </span>
         <Handle
           type="source"
@@ -72,7 +74,7 @@ export default function UserApprovalCanvasNode({ id, selected }: NodeProps<UserA
           className="branch-label branch-label--reject"
           style={{ top: sourceHandleTop(1, outputCount) }}
         >
-          Reject
+          {approval.reject}
         </span>
       </div>
 

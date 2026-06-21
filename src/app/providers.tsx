@@ -1,12 +1,14 @@
 "use client"
 
 import { ServicesProvider } from "@/data/providers/ServicesProvider"
+import { LocaleProvider } from "@/i18n/LocaleProvider"
 import { Slide, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "./toastify-theme.css"
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
+    <LocaleProvider>
     <ServicesProvider>
       {children}
       <ToastContainer
@@ -23,5 +25,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
         className="app-toastify-host"
       />
     </ServicesProvider>
+    </LocaleProvider>
   )
 }

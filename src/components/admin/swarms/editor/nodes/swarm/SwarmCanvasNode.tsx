@@ -7,6 +7,7 @@ import { CANVAS_NODE_CIRCLE_RADIUS } from "../shared/canvasNodeShapeStyles"
 import NodeRunVisual, { nodeRunSquareModifier, useNodeRunState } from "../shared/NodeRunVisual"
 import { NODE_RUN_SQUARE_STYLES } from "../shared/nodeRunSquareStyles"
 import { useSwarmEditor } from "../../SwarmEditorContext"
+import { useMessages } from "@/i18n/LocaleProvider"
 import {
   SWARM_FAILED_HANDLE,
   SWARM_SUCCESS_HANDLE,
@@ -24,6 +25,7 @@ function sourceHandleTop(index: number, total: number): string {
 /** Compact sub-swarm node on the React Flow canvas. */
 export default function SwarmCanvasNode({ id, selected, data }: NodeProps<SwarmNodeType>) {
   const { onSelectNode, onOpenNode, pickerSwarms } = useSwarmEditor()
+  const branch = useMessages().swarmEditor.branch
   const runState = useNodeRunState(id)
   const outputCount = 2
   const referenced = data.swarmId
@@ -63,7 +65,7 @@ export default function SwarmCanvasNode({ id, selected, data }: NodeProps<SwarmN
           className="branch-label branch-label--success"
           style={{ top: sourceHandleTop(0, outputCount) }}
         >
-          Success
+          {branch.success}
         </span>
         <Handle
           type="source"
@@ -76,7 +78,7 @@ export default function SwarmCanvasNode({ id, selected, data }: NodeProps<SwarmN
           className="branch-label branch-label--failed"
           style={{ top: sourceHandleTop(1, outputCount) }}
         >
-          Failed
+          {branch.failed}
         </span>
       </div>
 

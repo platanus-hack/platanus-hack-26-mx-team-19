@@ -1,10 +1,11 @@
 "use client"
 
+import { useControlNodePanelCopy } from "@/i18n/use-control-node-panel-copy"
 import NodeConfigPanelShell from "../shared/NodeConfigPanelShell"
 import type { ControlNodeConfigPanelProps } from "../registry/types"
 import type { ScraperNodeData } from "./data"
 import ScraperConfigForm from "./ScraperConfigForm"
-import { SCRAPER_NODE_META } from "./definition"
+import { SCRAPER_NODE_KIND, SCRAPER_NODE_META } from "./definition"
 
 /** Side config panel for the web scrape control node. */
 export default function ScraperConfigPanel({
@@ -16,10 +17,12 @@ export default function ScraperConfigPanel({
   graph,
   workerById,
 }: ControlNodeConfigPanelProps<ScraperNodeData>) {
+  const copy = useControlNodePanelCopy(SCRAPER_NODE_KIND, SCRAPER_NODE_META)
+
   return (
     <NodeConfigPanelShell
-      title={SCRAPER_NODE_META.label}
-      description={SCRAPER_NODE_META.description}
+      title={copy.label}
+      description={copy.description}
       onClose={onClose}
       onDeleteNode={onDeleteNode}
     >

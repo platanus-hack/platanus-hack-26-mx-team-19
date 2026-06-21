@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { TbArrowLeft, TbDeviceFloppy, TbLoader2 } from "react-icons/tb"
 import Loader from "@/components/ui/Loader"
+import LocaleToggle from "@/components/ui/LocaleToggle"
+import { useMessages } from "@/i18n/LocaleProvider"
 import { createSwarmWorkspaceApi, type SwarmApiMode } from "@/lib/swarm-workspace-api"
 import { swarmListRoute } from "@/lib/paths"
 import createServices, {
@@ -128,6 +130,7 @@ function apiErrorMessage(err: unknown, fallback: string): string {
  */
 export default function SwarmEditor({ swarmId, apiMode = "admin" }: Props) {
   const router = useRouter()
+  const editorStatus = useMessages().swarmEditor.status
   const { role } = useServices()
   const isAdmin = isAdminRole(role)
   const services = useMemo(() => createServices(ApiServices), [])
@@ -678,8 +681,8 @@ export default function SwarmEditor({ swarmId, apiMode = "admin" }: Props) {
             type="button"
             className="back"
             onClick={() => router.push(swarmListRoute(apiMode))}
-            aria-label="Back to swarms"
-            title="Back to swarms"
+            aria-label={editorStatus.backAria}
+            title={editorStatus.backAria}
           >
             <TbArrowLeft size={16} aria-hidden />
           </button>
@@ -755,8 +758,8 @@ export default function SwarmEditor({ swarmId, apiMode = "admin" }: Props) {
             type="button"
             className="back"
             onClick={() => router.push(swarmListRoute(apiMode))}
-            aria-label="Back to swarms"
-            title="Back to swarms"
+            aria-label={editorStatus.backAria}
+            title={editorStatus.backAria}
           >
             <TbArrowLeft size={16} aria-hidden />
           </button>
@@ -779,10 +782,11 @@ export default function SwarmEditor({ swarmId, apiMode = "admin" }: Props) {
             {swarm.goal?.trim() ? <p className="sub">{swarm.goal}</p> : null}
           </div>
           <div className="status">
+            <LocaleToggle />
             {savingGraph ? (
               <span className="status-pill status-pill--saving">
                 <TbLoader2 size={12} className="spin" aria-hidden />
-                Saving…
+                {editorStatus.saving}
               </span>
             ) : hasUnsavedChanges ? (
               <button
@@ -791,10 +795,10 @@ export default function SwarmEditor({ swarmId, apiMode = "admin" }: Props) {
                 onClick={() => persistGraph()}
               >
                 <TbDeviceFloppy size={12} aria-hidden />
-                Save changes
+                {editorStatus.saveChanges}
               </button>
             ) : (
-              <span className="status-pill">All changes saved</span>
+              <span className="status-pill">{editorStatus.allSaved}</span>
             )}
             {isAdmin ? (
               <SwarmEditorSnapshotCopyButton
