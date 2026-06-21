@@ -1,4 +1,3 @@
-import HeroDottedBackground from "../HeroDottedBackground"
 import { landingContent } from "@/content/landing"
 import SkillCopyCommand from "../SkillCopyCommand"
 import LandingContainer from "../LandingContainer"
@@ -9,7 +8,6 @@ export default function HeroSection() {
 
   return (
     <LandingSection variant="hero-compact" aria-labelledby="landing-hero-title">
-      <HeroDottedBackground />
       <LandingContainer narrow className="hero-content">
         <div className="inner">
           <p className="badge">{hero.badge}</p>
@@ -35,7 +33,7 @@ export default function HeroSection() {
           align-items: center;
           text-align: center;
           width: 100%;
-          margin: clamp(2rem, 7vh, 3.5rem) auto 0;
+          margin: clamp(1rem, 4vh, 2rem) auto 0;
         }
         .badge {
           margin: 0 0 1rem;
@@ -75,7 +73,7 @@ export default function HeroSection() {
         }
         @media (max-width: 639px) {
           .inner {
-            margin-top: clamp(1.25rem, 5vh, 2rem);
+            margin-top: clamp(0.5rem, 2vh, 1rem);
           }
           .title {
             font-size: 1.625rem;

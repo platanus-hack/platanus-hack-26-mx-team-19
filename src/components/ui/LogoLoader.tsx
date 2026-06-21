@@ -74,9 +74,9 @@ export default function LogoLoader({
 
   if (variant === "circles") {
     const ringColor = soft ? ACCENT_SOFT : "currentColor"
-    const dotColor = soft ? "#ffffff" : accent
+    const dotColor = soft ? "currentColor" : accent
     const ringOpacity = soft ? 0.55 : 0.35
-    const dotBaseOpacity = soft ? 0.45 : 0.55
+    const dotBaseOpacity = soft ? 1 : 0.55
 
     return (
       <span className={cn(styles.root, className)} role="status" aria-label={label}>

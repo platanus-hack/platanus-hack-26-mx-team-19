@@ -279,11 +279,9 @@ export default function ArchitecturesSection() {
         <div className={styles.catalogAtmosphere} aria-hidden />
         <LandingContainer className={styles.catalogInner}>
         <header className={styles.header}>
-          <p className={styles.eyebrow}>{architectures.eyebrow}</p>
-          <h2 id="landing-architectures-title" className={styles.srOnly}>
+          <h2 id="landing-architectures-title" className={styles.title}>
             {architectures.eyebrow}
           </h2>
-          <p className={styles.intro}>{architectures.intro}</p>
         </header>
 
           <ArchitectureGrid entries={featured} />

@@ -45,17 +45,14 @@ export default function LandingSection({
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
-          min-height: calc(100dvh - 3.75rem);
-          padding-top: clamp(2.5rem, 10vh, 4.5rem);
+          min-height: var(--hero-stage-height, calc(100dvh - 3.75rem));
+          padding-top: clamp(1.5rem, 6vh, 3rem);
           padding-bottom: clamp(2rem, 6vh, 3rem);
-          overflow: hidden;
           text-align: center;
-          background: var(--app-bg);
+          background: transparent;
           border-bottom: none;
           scroll-snap-align: start;
           scroll-snap-stop: always;
-          isolation: isolate;
-          contain: paint;
         }
         .section--compact {
           padding-top: 0;
@@ -75,7 +72,7 @@ export default function LandingSection({
             padding-bottom: 8rem;
           }
           .section--hero-compact {
-            padding-top: clamp(3rem, 12vh, 5.5rem);
+            padding-top: clamp(2rem, 8vh, 4rem);
             padding-bottom: clamp(2.5rem, 7vh, 3.5rem);
           }
           .section--compact {

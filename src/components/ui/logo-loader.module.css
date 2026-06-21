@@ -136,7 +136,7 @@
 @keyframes logoDotPulse {
   0%,
   100% {
-    opacity: 0.35;
+    opacity: 0.55;
     transform: scale(0.82);
   }
   50% {
