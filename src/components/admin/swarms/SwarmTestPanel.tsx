@@ -16,9 +16,11 @@ import {
   TbHelpCircle,
   TbHistory,
   TbPlayerPlay,
+  TbQrcode,
   TbRefresh,
   TbSettings,
 } from "react-icons/tb"
+import AuditQrModal from "@/components/audit/AuditQrModal"
 import createServices, {
   type AdminAgentWorker,
   type RunSwarmResult,
@@ -252,6 +254,7 @@ export default function SwarmTestPanel({
   }, [agentConfigOpen])
   const [resizeActive, setResizeActive] = useState(false)
   const [pendingApproval, setPendingApproval] = useState<SwarmRunApproval | null>(null)
+  const [auditQrOpen, setAuditQrOpen] = useState(false)
 
   const runAbortRef = useRef<AbortController | null>(null)
   const resumeAbortRef = useRef<AbortController | null>(null)
@@ -850,9 +853,12 @@ export default function SwarmTestPanel({
   }
 
   const historySelectValue = selectedHistoryRunId ?? (liveSessionRunId ? "live" : "")
+  const activeRunId = selectedHistoryRunId ?? liveSessionRunId
+  const canShareAudit = activeRunId != null && !running
 
   const sortedLogs = [...swarmLogs].sort((a, b) => a.step - b.step)
   const canCopyFinalOutput = finalOutput.trim().length > 0
+  const hasOutActions = canCopyFinalOutput || canShareAudit
   const canCopySwarmLogs = sortedLogs.some(
     (log) => log.kind === "worker" || log.kind === "swarm_tool",
   )
@@ -1098,17 +1104,32 @@ export default function SwarmTestPanel({
                 <TbPlayerPlay size={15} aria-hidden />
                 <span>{running ? "Running…" : "Run Swarm"}</span>
               </button>
-              <div className={`out-wrap${canCopyFinalOutput ? " out-wrap--copyable" : ""}`}>
-                {canCopyFinalOutput ? (
-                  <button
-                    type="button"
-                    className="out-copy"
-                    onClick={() => void copyFinalOutput()}
-                    aria-label="Copy final output"
-                    title="Copy final output"
-                  >
-                    <TbCopy size={14} aria-hidden />
-                  </button>
+              <div className={`out-wrap${hasOutActions ? " out-wrap--actions" : ""}`}>
+                {hasOutActions ? (
+                  <div className="out-actions">
+                    {canShareAudit && activeRunId ? (
+                      <button
+                        type="button"
+                        className="out-action"
+                        onClick={() => setAuditQrOpen(true)}
+                        aria-label="Show public audit QR code"
+                        title="Public audit QR"
+                      >
+                        <TbQrcode size={14} aria-hidden />
+                      </button>
+                    ) : null}
+                    {canCopyFinalOutput ? (
+                      <button
+                        type="button"
+                        className="out-action"
+                        onClick={() => void copyFinalOutput()}
+                        aria-label="Copy final output"
+                        title="Copy final output"
+                      >
+                        <TbCopy size={14} aria-hidden />
+                      </button>
+                    ) : null}
+                  </div>
                 ) : null}
                 <pre className="out">
                   {finalOutput || (running ? "Running…" : "(empty output)")}
@@ -1212,6 +1233,14 @@ export default function SwarmTestPanel({
           </div>
         </div>
       </div>
+      ) : null}
+
+      {canShareAudit && activeRunId ? (
+        <AuditQrModal
+          open={auditQrOpen}
+          runId={activeRunId}
+          onClose={() => setAuditQrOpen(false)}
+        />
       ) : null}
 
       <style jsx>{`
@@ -1798,11 +1827,16 @@ export default function SwarmTestPanel({
           display: flex;
           flex-direction: column;
         }
-        .out-copy {
+        .out-actions {
           position: absolute;
           top: 0.375rem;
           right: 0.375rem;
           z-index: 1;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.25rem;
+        }
+        .out-action {
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -1815,7 +1849,7 @@ export default function SwarmTestPanel({
           color: #c5cdd8;
           cursor: pointer;
         }
-        .out-copy:hover {
+        .out-action:hover {
           border-color: #5a6478;
           color: #e8edf4;
           background: #1a1d22;
@@ -1838,8 +1872,8 @@ export default function SwarmTestPanel({
           white-space: pre-wrap;
           word-break: break-word;
         }
-        .out-wrap--copyable .out {
-          padding-right: 2.25rem;
+        .out-wrap--actions .out {
+          padding-right: 4.5rem;
         }
         .out::-webkit-scrollbar {
           width: 6px;

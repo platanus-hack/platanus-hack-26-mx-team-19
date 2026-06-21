@@ -136,6 +136,7 @@ export function buildHistoricalSwarmLogs(
   options?: {
     childSubSwarmRuns?: SwarmRun[]
     swarmNameById?: Record<string, string>
+    workerNameById?: Record<string, string>
   },
 ): HistoricalSwarmLog[] {
   const logs: HistoricalSwarmLog[] = []
@@ -232,7 +233,10 @@ export function buildHistoricalSwarmLogs(
     logs.push({
       logId: agentRun.id,
       kind: "worker",
-      name: worker?.name ?? agentRun.workerId.slice(-6),
+      name:
+        worker?.name ??
+        options?.workerNameById?.[agentRun.workerId] ??
+        agentRun.workerId.slice(-6),
       step,
       status: "done",
       streamText: formatWorkerOutput(agentRun.output),
