@@ -35,7 +35,7 @@ export default function HeroSection() {
           align-items: center;
           text-align: center;
           width: 100%;
-          margin: 0 auto;
+          margin: clamp(2rem, 7vh, 3.5rem) auto 0;
         }
         .badge {
           margin: 0 0 1rem;

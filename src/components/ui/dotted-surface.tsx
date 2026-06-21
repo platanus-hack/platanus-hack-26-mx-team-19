@@ -34,7 +34,7 @@ export function DottedSurface({ className, layout = "contained", ...props }: Dot
     scene.fog = new THREE.Fog(0xffffff, 2000, 10000)
 
     const camera = new THREE.PerspectiveCamera(60, 1, 1, 10000)
-    camera.position.set(0, 355, 1220)
+    camera.position.set(0, 355, 1100)
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -63,7 +63,7 @@ export function DottedSurface({ className, layout = "contained", ...props }: Dot
     geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3))
 
     const material = new THREE.PointsMaterial({
-      size: 8,
+      size: 9,
       vertexColors: true,
       transparent: true,
       opacity: 0.8,
