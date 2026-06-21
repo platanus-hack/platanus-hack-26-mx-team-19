@@ -1,0 +1,22 @@
+.rootFixed {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.rootContained {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

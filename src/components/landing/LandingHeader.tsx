@@ -3,6 +3,7 @@
 import { landingContent } from "@/content/landing"
 import { useServices } from "@/data/providers/ServicesProvider"
 import AppLogo from "@/components/ui/AppLogo"
+import ThemeToggle from "@/components/ui/ThemeToggle"
 import LandingButton from "./LandingButton"
 import LandingContainer from "./LandingContainer"
 
@@ -25,6 +26,7 @@ export default function LandingHeader() {
           </nav>
         ) : null}
         <div className="actions">
+          <ThemeToggle />
           {stateService && isLoggedIn ? (
             <LandingButton href="/dashboard" variant="primary">
               {header.dashboardLabel}
@@ -47,7 +49,7 @@ export default function LandingHeader() {
           position: sticky;
           top: 0;
           z-index: 40;
-          background: rgba(251, 251, 250, 0.85);
+          background: color-mix(in srgb, var(--app-bg) 72%, transparent);
           border-bottom: 1px solid var(--app-border);
           backdrop-filter: saturate(180%) blur(14px);
           -webkit-backdrop-filter: saturate(180%) blur(14px);

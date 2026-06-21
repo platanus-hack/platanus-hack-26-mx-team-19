@@ -1,3 +1,4 @@
+import HeroDottedBackground from "../HeroDottedBackground"
 import { landingContent } from "@/content/landing"
 import SkillCopyCommand from "../SkillCopyCommand"
 import LandingContainer from "../LandingContainer"
@@ -8,7 +9,8 @@ export default function HeroSection() {
 
   return (
     <LandingSection variant="hero-compact" aria-labelledby="landing-hero-title">
-      <LandingContainer narrow>
+      <HeroDottedBackground />
+      <LandingContainer narrow className="hero-content">
         <div className="inner">
           <p className="badge">{hero.badge}</p>
           <h1 id="landing-hero-title" className="title">
@@ -18,12 +20,22 @@ export default function HeroSection() {
           <SkillCopyCommand />
         </div>
       </LandingContainer>
+      <style jsx global>{`
+        .hero-content {
+          position: relative;
+          z-index: 2;
+        }
+      `}</style>
       <style jsx>{`
         .inner {
+          position: relative;
+          z-index: 2;
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
+          width: 100%;
+          margin: 0 auto;
         }
         .badge {
           margin: 0 0 1rem;
@@ -33,8 +45,8 @@ export default function HeroSection() {
           letter-spacing: var(--app-tracking-wide);
           text-transform: uppercase;
           color: var(--app-text-muted);
-          background: var(--app-surface);
-          border: 1px solid var(--app-border);
+          background: transparent;
+          border: 1px solid color-mix(in srgb, var(--app-border) 70%, transparent);
           border-radius: 999px;
         }
         .title {

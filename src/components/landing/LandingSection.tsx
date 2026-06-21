@@ -41,11 +41,21 @@ export default function LandingSection({
         }
         .section--hero-compact {
           position: relative;
-          padding-top: 2.5rem;
-          padding-bottom: 1.75rem;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          min-height: calc(100dvh - 3.75rem);
+          padding-top: clamp(2.5rem, 10vh, 4.5rem);
+          padding-bottom: clamp(2rem, 6vh, 3rem);
+          overflow: hidden;
           text-align: center;
           background: var(--app-bg);
           border-bottom: none;
+          scroll-snap-align: start;
+          scroll-snap-stop: always;
+          isolation: isolate;
+          contain: paint;
         }
         .section--compact {
           padding-top: 0;
@@ -65,11 +75,17 @@ export default function LandingSection({
             padding-bottom: 8rem;
           }
           .section--hero-compact {
-            padding-top: 3rem;
-            padding-bottom: 2rem;
+            padding-top: clamp(3rem, 12vh, 5.5rem);
+            padding-bottom: clamp(2.5rem, 7vh, 3.5rem);
           }
           .section--compact {
             padding-bottom: 4rem;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .section--hero-compact {
+            scroll-snap-align: none;
+            scroll-snap-stop: normal;
           }
         }
       `}</style>
